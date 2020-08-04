@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_guideline_user,guideline.user,model_maintenance_guideline,base.group_user,1,0,0,0
+access_guideline_admin_user,guideline.admin.user,model_maintenance_guideline,maintenance.group_equipment_manager,1,1,1,1
+access_tracking_system_user,activity.tracking system user,model_maintenance_equipment_activity_tracking,base.group_user,1,1,1,1
+access_equipment_activity_user,equipment.activity.user,model_maintenance_equipment_activity,base.group_user,1,0,0,0
+access_equipment_activity_admin_user,equipment.activity system user,model_maintenance_equipment_activity,maintenance.group_equipment_manager,1,1,1,1
+access_guideline_type_user,guideline.type.user,model_maintenance_guideline_type,base.group_user,1,0,0,0
+access_guideline_type_admin_user,guideline.type system user,model_maintenance_guideline_type,maintenance.group_equipment_manager,1,1,1,1
