@@ -271,6 +271,63 @@
     </record>
 
 
+    <!-- equipment activity tracking : views -->
+    <record id="maintenance_equipment_activity_tracking_view_tree" model="ir.ui.view">
+        <field name="name">maintenance.equipment.activity.tracking.tree</field>
+        <field name="model">maintenance.equipment.activity.tracking</field>
+        <field name="arch" type="xml">
+            <tree editable="top" string="Equipment Tracking Activities">
+                <field name="tracking_date"/>
+                <field name="name"/>
+                <field name="equipment_id" required="1" />
+                <field name="equipment_activity_id" context="{'default_company_id': company_id}" domain="[('company_id', '=', company_id)]"/>
+                <field name="tracking_value"/>
+                <field name="uom_id"/>
+                <field name="company_id" invisible="1"/>
+                <field name="equipment_activity_uomctg_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="maintenance_equipment_activity_tracking_view_search" model="ir.ui.view">
+        <field name="name">maintenance.equipment.activity.tracking.search</field>
+        <field name="model">maintenance.equipment.activity.tracking</field>
+        <field name="arch" type="xml">
+            <search string="Equipment Tracking Activities">
+                <field name="tracking_date"/>
+                <field name="equipment_id"/>
+                <field name="equipment_activity_id"/>
+                <field name="name"/>
+                <separator/>
+                <filter name="month" string="Tracking Date" date="tracking_date"/>
+                <group expand="0" string="Group By">
+                    <filter string="Equipment" name="groupby_equipment" domain="[]" context="{'group_by': 'equipment_id'}"/>
+                    <filter string="Activity" name="groupby_activity" domain="[]" context="{'group_by': 'equipment_activity_id'}"/>
+                    <filter string="Tracking Date" name="groupby_trackingdate" domain="[]" context="{'group_by': 'tracking_date'}" help="Activity Tracking by Date"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- equipment activity tracking : actions -->
+    <record id="maintenance_equipment_activity_tracking_action" model="ir.actions.act_window">
+        <field name="name">Equipment Tracking Activities</field>
+        <field name="res_model">maintenance.equipment.activity.tracking</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="maintenance_equipment_activity_tracking_view_search"/>
+        <field name="context">{'search_default_week':1,}</field>
+<!--        <field name="help" type="html">-->
+<!--          <p class="o_view_nocontent_smiling_face">-->
+<!--            Record a new activity-->
+<!--          </p><p>-->
+<!--            You can register and track your workings hours by project every-->
+<!--            day. Every time spent on a project will become a cost and can be re-invoiced to-->
+<!--            customers if required.-->
+<!--          </p>-->
+<!--        </field>-->
+    </record>
+
+
     <!-- equipment.request : views -->
     <record id="hr_equipment_request_view_search" model="ir.ui.view">
         <field name="name">equipment.request.search</field>
@@ -394,6 +451,14 @@
                     </field>
                 </page>
             </xpath>
+
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="action" name="%(maintenance_equipment_activity_tracking_action)d"
+                    context="{'search_default_equipment_id': active_id, 'default_equipment_id': active_id}"
+                    icon="fa-clock-o">
+                    <field  string="Tracking" name="maintenance_actv_tracking_count" widget="statinfo"/>
+                </button>
+            </div>
         </field>
     </record>
 
