@@ -160,6 +160,11 @@ class MaintenanceEquipmentActivityTracking(models.Model):
                                                             record.equipment_activity_id.uom_id
                                                             )
 
+    @api.onchange('equipment_activity_id')
+    def _onchange_equipment_activity(self):
+        if self.equipment_activity_id:
+            self.uom_id = self.equipment_activity_id.uom_id
+
     @api.constrains('uom_id', 'equipment_activity_uomctg_id')
     def _check_uom_category(self):
         invalid_records = self.filtered(lambda r: r.uom_id.category_id != r.equipment_activity_uomctg_id)
@@ -182,20 +187,32 @@ class MaintenanceEquipment(models.Model):
     maintenance_actv_tracking_ids = fields.One2many('maintenance.equipment.activity.tracking', 'equipment_id',
         'Activity Tracking'
         )
+    maintenance_actv_tracking_count = fields.Integer('Activity Tracking Cojnt',
+        compute="_compute_maintenance_actv_tracking_count"
+        )
     equipment_activity_id = fields.Many2one('maintenance.equipment.activity', 'Equipment Activity',
         related="maintenance_guideline_ids.equipment_activity_id"
         )
+
+    @api.depends('maintenance_actv_tracking_ids')
+    def _compute_maintenance_actv_tracking_count(self):
+        actv_tracking_data = self.env['maintenance.equipment.activity.tracking'].read_group([
+            ('equipment_id', 'in', self.ids),
+            ], ['equipment_id'], ['equipment_id'])
+
+        result = dict((data['equipment_id'][0], data['equipment_id_count']) for data in actv_tracking_data)
+
+        for equipment in self:
+            equipment.maintenance_actv_tracking_count = result.get(equipment.id, 0)
 
     @api.model
     def _prepare_request_values(self, date):
         guideline = self.env['maintenance.guideline'].browse(self._context.get('default_guideline_id'))
 
-        return {
+        values = {
             'name': _('Preventive Maintenance - %s') % self.name if not guideline.name else '%s - %s' % (guideline.name, self.name),
             'duration': guideline.maintenance_duration or self.maintenance_duration,
             'company_id': self.company_id.id or self.env.company.id,
-            'maintenance_team_id': self.maintenance_team_id.id,
-            'owner_user_id': self.owner_user_id.id,
             'user_id': self.technician_user_id.id,
             'category_id': self.category_id.id,
             'maintenance_type': 'preventive',
@@ -203,6 +220,13 @@ class MaintenanceEquipment(models.Model):
             'schedule_date': date,
             'request_date': date,
             }
+
+        if self.maintenance_team_id:
+            values.update(maintenance_team_id=self.maintenace_team_id.id)
+        if self.owner_user_id:
+            values.update(owner_user_id=self.owner_user_id.id)
+
+        return values
 
     def _register_hook(self):
         """ Patch models to correct the that should trigger action rules based on creation,
