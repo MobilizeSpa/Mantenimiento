@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- equipment guideline : views -->
+    <record id="maintenance_guideline_view_form" model="ir.ui.view">
+        <field name="name">maintenance.guideline.form</field>
+        <field name="model">maintenance.guideline</field>
+        <field name="inherit_id" ref="l10n_cl_maintenance.maintenance_guideline_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet//field[@name='guideline_type_id']" position="after">
+                <field name="bom_id" />
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- equipment.request : views -->
+    <record id="hr_equipment_request_view_search" model="ir.ui.view">
+        <field name="name">equipment.request.search</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="l10n_cl_maintenance.hr_equipment_request_view_search"/>
+        <field name="arch" type="xml">
+            <field name="equipment_activity_id" position="after">
+                <field string="Bill of Material" name="bom_id" />
+                <field string="Warehouse" name="warehouse_id" groups="stock.group_stock_multi_warehouses" />
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_equipment_request_view_form" model="ir.ui.view">
+        <field name="name">equipment.request.form</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="l10n_cl_maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <field name="maintenance_guideline_id" position="after">
+                <field name="bom_id" attrs="{'invisible': [('maintenance_guideline_id', '=', False)]}"
+                    context="{'default_company_id':company_id}"
+                    options="{'no_create': 1, 'no_edit': 1,}"
+                    />
+                <field name="warehouse_id" options="{'no_create': True}"
+                    groups="stock.group_stock_multi_warehouses" force_save="1"
+                    />
+            </field>
+        </field>
+    </record>
+
+
+    <!-- equipment : views -->
+    <record id="hr_equipment_view_form" model="ir.ui.view">
+        <field name="name">equipment.form</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="l10n_cl_maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page/field[@name='maintenance_guideline_ids']/kanban/field[@name='guideline_type_id']" position="after">
+                <field name="bom_id" />
+            </xpath>
+            <xpath expr="//form/sheet/notebook/page/field[@name='maintenance_guideline_ids']/form//field[@name='guideline_type_id']" position="after">
+                <field name="bom_id" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
