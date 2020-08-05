@@ -187,7 +187,7 @@ class MaintenanceEquipment(models.Model):
     maintenance_actv_tracking_ids = fields.One2many('maintenance.equipment.activity.tracking', 'equipment_id',
         'Activity Tracking'
         )
-    maintenance_actv_tracking_count = fields.Integer('Activity Tracking Cojnt',
+    maintenance_actv_tracking_count = fields.Integer('Activity Tracking Count',
         compute="_compute_maintenance_actv_tracking_count"
         )
     equipment_activity_id = fields.Many2one('maintenance.equipment.activity', 'Equipment Activity',
