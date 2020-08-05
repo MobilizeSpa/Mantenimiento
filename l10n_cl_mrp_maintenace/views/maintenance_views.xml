@@ -60,4 +60,33 @@
         </field>
     </record>
 
+    <record id="maintenance_equipment_view_form_inherit_mrp" model="ir.ui.view">
+        <field name="name">maintenance.equipment.view.form.inherit.mrp</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="mrp_maintenance.maintenance_equipment_view_form_inherit_mrp"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='statistics']/label[@for='expected_mtbf']" position="before">
+                <label for="mtbm" string="Mean Time Between Failure Metric"/>
+                <div class="o_row">
+                    <field name="mbfm" widget="radio" options="{'horizontal': true}" />
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='statistics']/label[@for='expected_mtbf']/following-sibling::div[hasclass('o_row')]" position="replace">
+                <div class="o_row">
+                    <field name="expected_mtbf"/> <span attrs="{'invisible': [('mbfm', '=', 'hours')]}">days</span><span attrs="{'invisible': [('mbfm', '=', 'days')]}">hours</span>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='statistics']/label[@for='mtbf']/following-sibling::div[hasclass('o_row')]" position="replace">
+                <div class="o_row">
+                    <field name="mtbf" class="oe_read_only"/> <span attrs="{'invisible': [('mbfm', '=', 'hours')]}">days</span><span attrs="{'invisible': [('mbfm', '=', 'days')]}">hours</span>
+                </div>
+            </xpath>
+            <xpath expr="//group[@name='statistics']/label[@for='mttr']/following-sibling::div[hasclass('o_row')]" position="replace">
+                <div class="o_row">
+                    <field name="mttr" class="oe_read_only"/> <span attrs="{'invisible': [('mbfm', '=', 'hours')]}">days</span><span attrs="{'invisible': [('mbfm', '=', 'days')]}">hours</span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>
