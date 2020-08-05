@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'Chile -Maintenance',
+    'name': 'Chile - Maintenance',
     'version': '1.0',
     'sequence': 125,
     'category': 'Operations/Maintenance',
