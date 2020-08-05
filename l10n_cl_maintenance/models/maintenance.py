@@ -113,7 +113,7 @@ class MaintenanceGuideline(models.Model):
             raise ValidationError(_(
                 "The following %s %s don't have value either for frequently or fixed measurement"
                 ) % (
-                ',\n '.join(invalid_records.display_name),
+                ',\n '.join(invalid_records.mapped('display_name')),
                 _(self._description),
                 ))
 
@@ -124,7 +124,7 @@ class MaintenanceGuideline(models.Model):
             raise ValidationError(_(
                 "The following %s %s don't have the correct unit of measurement category"
                 ) % (
-                ',\n '.join(invalid_records.display_name),
+                ',\n '.join(invalid_records.mapped('display_name')),
                 _(self._description),
                 ))
 
@@ -173,7 +173,7 @@ class MaintenanceEquipmentActivityTracking(models.Model):
             raise ValidationError(_(
                 "The following %s %s don't have the correct unit of measurement category"
                 ) % (
-                ',\n '.join(invalid_records.display_name),
+                ',\n '.join(invalid_records.mapped('display_name')),
                 _(self._description),
                 ))
 
