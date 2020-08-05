@@ -6,7 +6,8 @@
     'sequence': 125,
     'category': 'Operations/Maintenance',
     'description': """
-        Track equipments and maintenance requests""",
+Track equipments and maintenance requests
+""",
     'depends': ['maintenance', 'uom'],
     'summary': 'Track equipment and manage maintenance requests',
     # 'website': 'https://www.odoo.com/page/tpm-maintenance-software',
