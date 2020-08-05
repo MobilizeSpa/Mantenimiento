@@ -300,7 +300,7 @@
                 <field name="name"/>
                 <separator/>
                 <filter name="month" string="Tracking Date" date="tracking_date"/>
-                <group expand="0" string="Group By">
+                <group expand="0" string="Group by...">
                     <filter string="Equipment" name="groupby_equipment" domain="[]" context="{'group_by': 'equipment_id'}"/>
                     <filter string="Activity" name="groupby_activity" domain="[]" context="{'group_by': 'equipment_activity_id'}"/>
                     <filter string="Tracking Date" name="groupby_trackingdate" domain="[]" context="{'group_by': 'tracking_date'}" help="Activity Tracking by Date"/>
