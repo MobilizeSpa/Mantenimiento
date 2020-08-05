@@ -80,7 +80,7 @@ class MaintenanceGuideline(models.Model):
         ('frequently', 'Frequently'),
         ], 'Measurement', default='frequently')
     period = fields.Integer('Frequency between each preventive maintenance')
-    value = fields.Integer('Value for preventive mantenance')
+    value = fields.Integer('Value for preventive maintenance')
 
     @api.depends('guideline_type_id', 'uom_id', 'period')
     def _compute_name(self):

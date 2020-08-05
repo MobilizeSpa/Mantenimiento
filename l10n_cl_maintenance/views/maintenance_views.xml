@@ -253,7 +253,7 @@
                         <field name="measurement" widget="radio" options="{'horizontal': true}" />
                         <div class="o_td_label">
                             <label for="period" string="Frequency between each preventive maintenance" attrs="{'invisible': [('measurement', '=', 'fixed')]}" />
-                            <label for="value" string="Value for preventive mantenance" attrs="{'invisible': [('measurement', '=', 'frequently')]}" />
+                            <label for="value" string="Value for preventive maintenance" attrs="{'invisible': [('measurement', '=', 'frequently')]}" />
                         </div>
                         <div >
                             <field name="period" attrs="{'invisible': [('measurement', '=', 'fixed')], 'required': [('measurement', '=', 'frequently')]}" nolabel="1"/>
