@@ -207,7 +207,7 @@ class MaintenanceEquipment(models.Model):
 
     @api.model
     def _prepare_request_values(self, date):
-        guideline = self.env['maintenance.guideline'].browse(self._context.get('default_guideline_id'))
+        guideline = self.env['maintenance.guideline'].browse(self._context.get('default_maintenance_guideline_id'))
 
         values = {
             'name': _('Preventive Maintenance - %s') % self.name if not guideline.name else '%s - %s' % (guideline.name, self.name),
@@ -278,7 +278,7 @@ class MaintenanceEquipment(models.Model):
                     Generates maintenance request on the next_action_date or today if none exists
                 """
                 TrackingSudo = self.env['maintenance.equipment.activity.tracking'].sudo()
-                today = fields.Date.today()
+                today = fields.Date.context_today(self)
                 tracking_value_delta = 3
 
                 for guideline in self.env['maintenance.guideline'].search(['|', ('period', '>', 0), ('value', '>', 0)]):
@@ -311,7 +311,7 @@ class MaintenanceEquipment(models.Model):
                             if not tracking_limit_low <= tracking_value <= tracking_limit_hight:
                                 continue
 
-                        equipment.with_context(default_guideline_id=guideline.id)._create_new_request(today)
+                        equipment.with_context(default_maintenance_guideline_id=guideline.id)._create_new_request(today)
 
             return _cron_generate_requests
 
