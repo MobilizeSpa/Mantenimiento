@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* l19n_cl)maintenance
+# 	* l19n_cl_maintenance
 # 
 # Translators:
 # Pedro Antonio Valdés Guibert <peterjunior0224@gmail.com>, 2020
