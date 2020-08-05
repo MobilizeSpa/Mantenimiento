@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_cl_mrp_maintenance
+# 
+# Translators:
+# Pedro Antonio Valdés Guibert <peterjunior0224@gmail.com>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-08-05 03:34+0000\n"
+"PO-Revision-Date: 2020-08-05 03:34+0000\n"
+"Last-Translator: Pedro Antonio Valdés Guibert <peterjunior0224@gmail.com>, 2020\n"
+"Language-Team: Spanish (https://www.transifex.com/odoo/teams/41243/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_l10n_cl_mrp_maintenance
+msgid "Chile - Maintenance MRP"
+msgstr "Chile - Mantenimiento MRP"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_l10n_cl_mrp_maintenance
+msgid "Schedule and manage maintenance on machine and tools."
+msgstr "Planificar y gestionar el mantenimiento de las máquinas y herramientas."
+
+
+#. module: base
+#: model:ir.module.module,description:base.module_l10n_cl_mrp_maintenance
+msgid "\n"
+"Request BoM for a Maintenance ...\n"
+msgstr "\n"
+"Solicitud de LdM para un mantenimiento ...\n"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_guideline__bom_id
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_request__bom_id
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.hr_equipment_request_view_search
+msgid "Bill of Material"
+msgstr "Lista de materiales"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,help:l10n_cl_mrp_maintenance.field_maintenance_guideline__bom_id
+msgid "Bill of Materials allow you to define the list of required components to make a maintenance."
+msgstr "La lista de materiales le permite definir la lista de componentes necesarios para hacer un mantenimiento."
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_request__warehouse_id
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.hr_equipment_request_view_search
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_equipment__mbfm
+msgid "MTBF Metric"
+msgstr "Métrica del Tiempo medio entre fallos"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,help:l10n_cl_mrp_maintenance.field_maintenance_equipment__mbfm
+msgid "Mean Time Between Failure Measure"
+msgstr "Medición del Tiempo medio entre fallos"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields.selection,name:l10n_cl_mrp_maintenance.selection__maintenance_equipment__mbfm__hours
+msgid "Hours"
+msgstr "Horas"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields.selection,name:l10n_cl_mrp_maintenance.selection__maintenance_equipment__mbfm__days
+msgid "Days"
+msgstr "Días"
+
+#. module: l10n_cl_mrp_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.maintenance_equipment_view_form_inherit_mrp
+msgid "Mean Time Between Failure Metric"
+msgstr "Métrica del Tiempo medio entre fallos"
+
+#. module: l10n_cl_mrp_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.maintenance_equipment_view_form_inherit_mrp
+msgid "<span attrs=\"{'invisible': [('mbfm', '=', 'hours')]}\">days</span><span attrs=\"{'invisible': [('mbfm', '=', 'days')]}\">hours</span>"
+msgstr "<span attrs=\"{'invisible': [('mbfm', '=', 'hours')]}\">días</span><span attrs=\"{'invisible': [('mbfm', '=', 'days')]}\">horas</span>"
