@@ -386,7 +386,7 @@
             </xpath>
 
             <xpath expr="//form/sheet/notebook" position="inside">
-                <page string="Guideline Of Maintenance">
+                <page string="Guideline Of Maintenances">
                     <field name="maintenance_guideline_ids" mode="kanban" context="{'default_equipment_id': active_id, 'default_company_id': company_id}">
                         <kanban>
                             <field name="id"/>

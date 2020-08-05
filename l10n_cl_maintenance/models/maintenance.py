@@ -171,7 +171,7 @@ class MaintenanceEquipmentActivityTracking(models.Model):
 
         if invalid_records:
             raise ValidationError(_(
-                "The following %s %s don't have the correct unit of measurement category"
+                "The following %s %s does not have the correct unit of measurement category"
                 ) % (
                 ',\n '.join(invalid_records.mapped('display_name')),
                 _(self._description),
@@ -343,7 +343,7 @@ class MaintenanceEquipment(models.Model):
 class MaintenanceRequest(models.Model):
     _inherit = 'maintenance.request'
 
-    maintenance_guideline_id = fields.Many2one('maintenance.guideline',  'Guideline Of Maintenances',
+    maintenance_guideline_id = fields.Many2one('maintenance.guideline',  'Guideline Of Maintenance',
         domain="[('equipment_id', '=', equipment_id)]", check_company=True
         )
     equipment_activity_id = fields.Many2one('maintenance.equipment.activity', 'Equipment Activity',
