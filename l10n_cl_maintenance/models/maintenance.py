@@ -48,7 +48,11 @@ class MaintenanceGuidelineType(models.Model):
     @api.depends('name', 'prefix', 'suffix')
     def _compute_preview(self):
         for record in self:
-            record.preview = ("%s%s%s xxxx yyyy" % (record.prefix or '', record.name or '', record.suffix or '')).strip()
+            record.preview = ("%s xxxx yyyy" % ' '.join(filter(None, [
+                                                        record.prefix or '',
+                                                        record.name or '',
+                                                        record.suffix or ''
+                                                        ]))).strip()
 
 
 class MaintenanceGuideline(models.Model):
@@ -82,13 +86,15 @@ class MaintenanceGuideline(models.Model):
     period = fields.Integer('Frequency between each preventive maintenance')
     value = fields.Integer('Value for preventive maintenance')
 
-    @api.depends('guideline_type_id', 'uom_id', 'period')
+    @api.depends('guideline_type_id', 'uom_id', 'measurement', 'period', 'value')
     def _compute_name(self):
         for record in self:
-            record.name = ('%s%s%s %s %s' % (
-                            record.guideline_type_id.prefix or '',
-                            record.guideline_type_id.name or '',
-                            record.guideline_type_id.suffix or '',
+            record.name = ('%s %s %s' % (
+                            ' '.join(filter(None, [
+                                record.guideline_type_id.prefix or '',
+                                record.guideline_type_id.name or '',
+                                record.guideline_type_id.suffix or '',
+                                ])),
                             record.period if record.measurement == 'frequently' else record.value ,
                             record.uom_id.name or '',
                             )).strip()
