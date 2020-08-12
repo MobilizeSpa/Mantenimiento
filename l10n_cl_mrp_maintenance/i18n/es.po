@@ -84,3 +84,75 @@ msgstr "Métrica del Tiempo medio entre fallos"
 #: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.maintenance_equipment_view_form_inherit_mrp
 msgid "<span attrs=\"{'invisible': [('mbfm', '=', 'hours')]}\">days</span><span attrs=\"{'invisible': [('mbfm', '=', 'days')]}\">hours</span>"
 msgstr "<span attrs=\"{'invisible': [('mbfm', '=', 'hours')]}\">días</span><span attrs=\"{'invisible': [('mbfm', '=', 'days')]}\">horas</span>"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:maintenance.stage,name:l10n_cl_mrp_maintenance.stage_5
+msgid "To Repair"
+msgstr "Para Reparar"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_stage__request_bom
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.hr_equipment_stage_view_search
+msgid "Request Bill of Material"
+msgstr "Soliciar Lista de materiales"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_stage__require_bom
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.hr_equipment_stage_view_search
+msgid "Require Bill of Material"
+msgstr "Require Lista de materiales"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_team__maintenance_location_id
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_request__maintenance_location_id
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.hr_equipment_request_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.maintenance_team_view_search
+msgid "Maintenance Location"
+msgstr "Ubicación de Mantenimiento"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_request__procurement_group_id
+msgid "Procurement Group"
+msgstr "Grupo de abastecimiento"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_request__procurement_picking_ids
+msgid "Transfers"
+msgstr "Transferencias"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_request__procurement_picking_count
+msgid "BoM Transfers"
+msgstr "Transferencias de LdM"
+
+#. module: l10n_cl_mrp_maintenance
+#: code:addons/l10n_cl_mrp_maintenance/models/maintenance.py:0
+#, python-format
+msgid "The following %s %s need a processed Bill of Material transfer request in order to continue"
+msgstr "La(s) siguiente(s) %s %s necesitan una solicitud de transferencia de materiales procesada para continuar"
+
+#. module: l10n_cl_mrp_maintenance
+#: code:addons/l10n_cl_mrp_maintenance/models/maintenance.py:0
+#, python-format
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_procurement_group__maintenance_id
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_stock_picking__maintenance_id
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_stock_move__maintenance_id
+msgid "Maintenance Request"
+msgstr "Petición de mantenimiento"
+
+#. module: l10n_cl_mrp_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_stock_warehouse__pick_bom_pull_id
+msgid "'Picking Bill of Material Rule'"
+msgstr "Regla para la extracción de materiales"
+
+#. module: l10n_cl_mrp_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.hr_equipment_request_view_search
+msgid "Done"
+msgstr "Hecho"
+
+#. module: l10n_cl_mrp_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.hr_equipment_request_view_form
+msgid "BoM Delivery"
+msgstr "Entrega de LdM"
+
+
