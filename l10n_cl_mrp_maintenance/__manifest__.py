@@ -12,6 +12,7 @@ Request BoM for a Maintenance ...
 """,
     'depends': ['mrp_maintenance', 'l10n_cl_maintenance'],
     'data': [
+        'data/maintenance_data.xml',
         'views/maintenance_views.xml',
         ],
     # 'demo': ['data/mrp_maintenance_demo.xml'],

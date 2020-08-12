@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- equipment.stage : views -->
+    <record id="hr_equipment_stage_view_search" model="ir.ui.view">
+        <field name="name">equipment.stage.search</field>
+        <field name="model">maintenance.stage</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_stage_view_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <separator />
+                <filter string="Request Bill of Material" name="request_bom" domain="[('request_bom', '=', True)]"/>
+                <filter string="Require Bill of Material" name="require_bom" domain="[('require_bom', '=', True)]"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_equipment_stage_view_tree" model="ir.ui.view">
+        <field name="name">equipment.stage.tree</field>
+        <field name="model">maintenance.stage</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_stage_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="request_bom"/>
+                <field name="require_bom"/>
+            </field>
+        </field>
+    </record>
+
+
     <!-- equipment guideline : views -->
     <record id="maintenance_guideline_view_form" model="ir.ui.view">
         <field name="name">maintenance.guideline.form</field>
@@ -23,7 +50,17 @@
             <field name="equipment_activity_id" position="after">
                 <field string="Bill of Material" name="bom_id" />
                 <field string="Warehouse" name="warehouse_id" groups="stock.group_stock_multi_warehouses" />
+                <field string="Maintenance Location" name="maintenance_location_id" />
             </field>
+
+            <xpath expr="//filter[@name='done']" position="after">
+                <filter string="Done" name="done" domain="[('kanban_state', '=', 'done')]"/>
+            </xpath>
+
+            <xpath expr="//filter[@name='done']" position="attributes">
+                <attribute name="name">ready</attribute>
+                <attribute name="domain">[('picking_ids.state', '=', 'done')]</attribute>
+            </xpath>
         </field>
     </record>
 
@@ -32,6 +69,19 @@
         <field name="model">maintenance.request</field>
         <field name="inherit_id" ref="l10n_cl_maintenance.hr_equipment_request_view_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <field name="picking_ids" invisible="1"/>
+                    <button type="object"
+                        name="action_view_delivery_bom"
+                        class="oe_stat_button"
+                        icon="fa-truck"
+                        attrs="{'invisible': [('picking_count', '=', 0)]}" groups="base.group_user">
+                        <field name="picking_count" widget="statinfo" string="BoM Delivery"/>
+                    </button>
+                </div>
+            </xpath>
+
             <field name="maintenance_guideline_id" position="after">
                 <field name="bom_id" attrs="{'invisible': [('maintenance_guideline_id', '=', False)]}"
                     context="{'default_company_id':company_id}"
@@ -40,6 +90,53 @@
                 <field name="warehouse_id" options="{'no_create': True}"
                     groups="stock.group_stock_multi_warehouses" force_save="1"
                     />
+                <field name="maintenance_location_id"
+                    context="{'default_company_id':company_id}"
+                    options="{'no_create': 1, 'no_edit': 1,}"
+                    />
+            </field>
+        </field>
+    </record>
+
+
+    <!-- maintenance.team: views -->
+    <record id="maintenance_team_view_form" model="ir.ui.view">
+        <field name="name">maintenance.team.form</field>
+        <field name="model">maintenance.team</field>
+        <field name="inherit_id" ref="maintenance.maintenance_team_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='member_ids']/.." position="after">
+                <group>
+                    <field name="maintenance_location_id"
+                        context="{'default_company_id':company_id}"
+                        options="{'no_create': True}"
+                        />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="maintenance_team_view_tree" model="ir.ui.view">
+        <field name="name">maintenance.team.tree</field>
+        <field name="model">maintenance.team</field>
+        <field name="inherit_id" ref="maintenance.maintenance_team_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='member_ids']" position="after">
+                <field name="maintenance_location_id"
+                    context="{'default_company_id':company_id}"
+                    options="{'no_create': True}"
+                    />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="maintenance_team_view_search" model="ir.ui.view">
+        <field name="name">maintenance.team.search</field>
+        <field name="model">maintenance.team</field>
+        <field name="inherit_id" ref="maintenance.maintenance_team_view_search"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field string="Maintenance Location" name="maintenance_location_id" />
             </field>
         </field>
     </record>
