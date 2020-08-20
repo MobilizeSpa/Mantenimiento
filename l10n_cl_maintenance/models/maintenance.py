@@ -303,6 +303,9 @@ class MaintenanceEquipment(models.Model):
                                         ('equipment_activity_id', '=', guideline.equipment_activity_id.id),
                                         ('equipment_id', '=', equipment.id),
                                         ], ['equipment_activity_id', 'tracking_eauom_value'], 'tracking_eauom_value')
+                        if not tracking_data:
+                            continue
+
                         tracking_value = tracking_data[0]['tracking_eauom_value']
 
                         if guideline.measurement == 'frequently':
