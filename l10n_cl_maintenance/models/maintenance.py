@@ -228,7 +228,7 @@ class MaintenanceEquipment(models.Model):
             }
 
         if self.maintenance_team_id:
-            values.update(maintenance_team_id=self.maintenace_team_id.id)
+            values.update(maintenance_team_id=self.maintenance_team_id.id)
         if self.owner_user_id:
             values.update(owner_user_id=self.owner_user_id.id)
 
