@@ -245,8 +245,8 @@ class MaintenanceEquipment(models.Model):
             @api.depends('effective_date', 'period', 'maintenance_ids.request_date', 'maintenance_ids.close_date')
             def _compute_next_maintenance(self):
                 date_now = fields.Date.context_today(self)
-                equipments = self.filtered(lambda x: x.maintenance_guideline_ids.period > 0 or
-                                                     x.maintenance_guideline_ids.value > 0)
+                equipments = self.filtered(lambda x: any(mg.period > 0 or mg.value > 0
+                                                         for mg in x.maintenance_guideline_ids))
 
                 for equipment in equipments:
                     next_maintenance_todo = self.env['maintenance.request'].search([
