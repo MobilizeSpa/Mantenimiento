@@ -15,13 +15,14 @@ class StockRule(models.Model):
     def _get_custom_move_fields(self):
         return super(StockRule, self)._get_custom_move_fields() + [
             'maintenance_id',
-            ]
+        ]
 
 
 class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
-    maintenance_id = fields.Many2one(related="group_id.maintenance_id", string="Maintenance Request", store=True, readonly=False)
+    maintenance_id = fields.Many2one(related="group_id.maintenance_id", string="Maintenance Request", store=True,
+                                     readonly=False)
 
 
 class StockMove(models.Model):
@@ -69,25 +70,24 @@ class StockWarehouse(models.Model):
                     'route_id': self.delivery_route_id.id,
                     'procure_method': 'mts_else_mto',
                     'company_id': self.company_id.id,
-                    'delay_alert': True,
                     'action': 'pull',
                     'auto': 'manual',
-                    },
+                },
                 'update_values': {
                     'name': self._format_rulename(location_id, location_dest_id, 'BOM'),
                     'picking_type_id': picking_type_id.id,
                     'location_id': location_dest_id.id,
                     'location_src_id': location_id.id,
                     'active': True,
-                    },
-                }
-            })
+                },
+            }
+        })
 
         return rules
 
     @api.model
     def create_missing_global_routes_rules(self):
-        warehouses  = self.env['stock.warehouse'].search([])
+        warehouses = self.env['stock.warehouse'].search([])
         warehouse_without_pick_bom_pull_rules = warehouses.filtered(lambda w: not w.pick_bom_pull_id)
         for warehouse in warehouse_without_pick_bom_pull_rules:
             warehouse._create_or_update_global_routes_rules()

@@ -5,11 +5,11 @@
     'name': 'Chile - Maintenance MRP',
     'version': '1.0',
     'category': 'Manufacturing/Manufacturing',
-    'summary': 'Schedule and manage maintenance on machine and tools.',
+    'summary': 'Programe y gestione el mantenimiento de máquinas y herramientas.',
     # 'website': 'https://www.odoo.com/page/tpm-maintenance-software',
     'description': """
-Request BoM for a Maintenance ...
-""",
+        Solicitar lista de materiales para un mantenimiento ...
+    """,
     'depends': ['mrp_maintenance', 'l10n_cl_maintenance'],
     'data': [
         'data/maintenance_data.xml',

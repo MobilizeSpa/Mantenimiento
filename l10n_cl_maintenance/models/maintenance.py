@@ -21,13 +21,13 @@ class MaintenanceEquipmentActivity(models.Model):
         self.ensure_one()
 
         equipments = self.env['maintenance.guideline'].search([
-                                ('company_id', 'in', (self.company_id.id, False)),
-                                ('equipment_activity_id', '=', self.id),
-                                ]).mapped('equipment_id')
+            ('company_id', 'in', (self.company_id.id, False)),
+            ('equipment_activity_id', '=', self.id),
+        ]).mapped('equipment_id')
         equipments += self.env['maintenance.equipment.activity.tracking'].search([
-                                ('company_id', 'in', (self.company_id.id, False)),
-                                ('equipment_activity_id', '=', self.id),
-                                ]).mapped('equipment_id')
+            ('company_id', 'in', (self.company_id.id, False)),
+            ('equipment_activity_id', '=', self.id),
+        ]).mapped('equipment_id')
 
         self.equipment_count = len(equipments)
         self.equipment_ids = equipments
@@ -49,40 +49,39 @@ class MaintenanceGuidelineType(models.Model):
     def _compute_preview(self):
         for record in self:
             record.preview = ("%s xxxx yyyy" % ' '.join(filter(None, [
-                                                        record.prefix or '',
-                                                        record.name or '',
-                                                        record.suffix or ''
-                                                        ]))).strip()
+                record.prefix or '',
+                record.name or '',
+                record.suffix or ''
+            ]))).strip()
 
 
 class MaintenanceGuideline(models.Model):
     _name = 'maintenance.guideline'
     _description = 'Maintenance Guideline'
-
     _check_company_auto = True
 
     name = fields.Char('Name', compute='_compute_name', readonly=True, store=True)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
     description = fields.Text('Description')
-    guideline_type_id = fields.Many2one('maintenance.guideline.type', 'Guideline Type', ondelete='restrict',
-        required=True, check_company=True
-        )
+    guideline_type_id = fields.Many2one('maintenance.guideline.type',
+                                        'Guideline Type', ondelete='restrict',
+                                        required=True, check_company=True)
     maintenance_duration = fields.Float(help="Maintenance Duration in hours.")
 
     equipment_id = fields.Many2one('maintenance.equipment', string='Equipment', ondelete='cascade', index=True,
-        check_company=True)
+                                   check_company=True)
     equipment_activity_id = fields.Many2one('maintenance.equipment.activity', 'Equipment Activity', required=True,
-        check_company=True)
+                                            check_company=True)
     equipment_activity_uomctg_id = fields.Many2one('uom.category', 'Equipment Activity UoM Category',
-        related='equipment_activity_id.uom_id.category_id', readonly=True,
-        store=True
-        )
-    uom_id = fields.Many2one('uom.uom', 'Unit of Measure', domain="[('category_id', '=', equipment_activity_uomctg_id)]")
+                                                   related='equipment_activity_id.uom_id.category_id',
+                                                   readonly=True, store=True)
+    uom_id = fields.Many2one('uom.uom', 'Unit of Measure',
+                             domain="[('category_id', '=', equipment_activity_uomctg_id)]")
 
     measurement = fields.Selection([
         ('fixed', 'At reached value'),
         ('frequently', 'Frequently'),
-        ], 'Measurement', default='frequently')
+    ], 'Measurement', default='frequently')
     period = fields.Integer('Frequency between each preventive maintenance')
     value = fields.Integer('Value for preventive maintenance')
 
@@ -90,14 +89,14 @@ class MaintenanceGuideline(models.Model):
     def _compute_name(self):
         for record in self:
             record.name = ('%s %s %s' % (
-                            ' '.join(filter(None, [
-                                record.guideline_type_id.prefix or '',
-                                record.guideline_type_id.name or '',
-                                record.guideline_type_id.suffix or '',
-                                ])),
-                            record.period if record.measurement == 'frequently' else record.value ,
-                            record.uom_id.name or '',
-                            )).strip()
+                ' '.join(filter(None, [
+                    record.guideline_type_id.prefix or '',
+                    record.guideline_type_id.name or '',
+                    record.guideline_type_id.suffix or '',
+                ])),
+                record.period if record.measurement == 'frequently' else record.value,
+                record.uom_id.name or '',
+            )).strip()
 
     @api.onchange('equipment_activity_id')
     def _onchange_equipment_activity(self):
@@ -118,10 +117,10 @@ class MaintenanceGuideline(models.Model):
         if invalid_records:
             raise ValidationError(_(
                 "The following %s %s don't have value either for frequently or fixed measurement"
-                ) % (
-                ',\n '.join(invalid_records.mapped('display_name')),
-                _(self._description),
-                ))
+            ) % (
+                                      ',\n '.join(invalid_records.mapped('display_name')),
+                                      _(self._description),
+                                  ))
 
     @api.constrains('uom_id', 'equipment_activity_uomctg_id')
     def _check_uom_category(self):
@@ -129,10 +128,10 @@ class MaintenanceGuideline(models.Model):
         if invalid_records:
             raise ValidationError(_(
                 "The following %s %s don't have the correct unit of measurement category"
-                ) % (
-                ',\n '.join(invalid_records.mapped('display_name')),
-                _(self._description),
-                ))
+            ) % (
+                                      ',\n '.join(invalid_records.mapped('display_name')),
+                                      _(self._description),
+                                  ))
 
 
 class MaintenanceEquipmentActivityTracking(models.Model):
@@ -144,27 +143,28 @@ class MaintenanceEquipmentActivityTracking(models.Model):
     name = fields.Char('Name', required=True)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
     equipment_id = fields.Many2one('maintenance.equipment', string='Equipment', ondelete='cascade', index=True,
-        check_company=True)
+                                   check_company=True)
     equipment_activity_id = fields.Many2one('maintenance.equipment.activity', 'Equipment Activity', required=True,
-        check_company=True)
+                                            check_company=True)
     equipment_activity_uomctg_id = fields.Many2one('uom.category', 'Equipment Activity UoM Category',
-        related='equipment_activity_id.uom_id.category_id', readonly=True,
-        store=True
-        )
-    uom_id = fields.Many2one('uom.uom', 'Unit of Measure', domain="[('category_id', '=', equipment_activity_uomctg_id)]")
+                                                   related='equipment_activity_id.uom_id.category_id', readonly=True,
+                                                   store=True
+                                                   )
+    uom_id = fields.Many2one('uom.uom', 'Unit of Measure',
+                             domain="[('category_id', '=', equipment_activity_uomctg_id)]")
     tracking_date = fields.Datetime('Tracking Date', default=fields.Datetime.now)
     tracking_value = fields.Integer('Tracking Value')
     tracking_eauom_value = fields.Integer('Tracking Value on Equipment Actv UoM',
-        compute='_compute_tracking_eauom_value', store=True
-        )
+                                          compute='_compute_tracking_eauom_value', store=True
+                                          )
 
     @api.depends('equipment_activity_uomctg_id', 'uom_id', 'tracking_value')
     def _compute_tracking_eauom_value(self):
         for record in self:
             record.tracking_eauom_value = record.uom_id._compute_quantity(
-                                                            record.tracking_value,
-                                                            record.equipment_activity_id.uom_id
-                                                            )
+                record.tracking_value,
+                record.equipment_activity_id.uom_id
+            )
 
     @api.onchange('equipment_activity_id')
     def _onchange_equipment_activity(self):
@@ -178,33 +178,33 @@ class MaintenanceEquipmentActivityTracking(models.Model):
         if invalid_records:
             raise ValidationError(_(
                 "The following %s %s does not have the correct unit of measurement category"
-                ) % (
-                ',\n '.join(invalid_records.mapped('display_name')),
-                _(self._description),
-                ))
+            ) % (
+                                      ',\n '.join(invalid_records.mapped('display_name')),
+                                      _(self._description),
+                                  ))
 
 
 class MaintenanceEquipment(models.Model):
     _inherit = 'maintenance.equipment'
 
-    maintenance_guideline_ids = fields.One2many('maintenance.guideline', 'equipment_id',
-        'Guideline Of Maintenances'
-        )
+    maintenance_guideline_ids = fields.One2many('maintenance.guideline',
+                                                'equipment_id',
+                                                'Guideline Of Maintenances')
     maintenance_actv_tracking_ids = fields.One2many('maintenance.equipment.activity.tracking', 'equipment_id',
-        'Activity Tracking'
-        )
+                                                    'Activity Tracking'
+                                                    )
     maintenance_actv_tracking_count = fields.Integer('Activity Tracking Count',
-        compute="_compute_maintenance_actv_tracking_count"
-        )
+                                                     compute="_compute_maintenance_actv_tracking_count"
+                                                     )
     equipment_activity_id = fields.Many2one('maintenance.equipment.activity', 'Equipment Activity',
-        related="maintenance_guideline_ids.equipment_activity_id"
-        )
+                                            related="maintenance_guideline_ids.equipment_activity_id"
+                                            )
 
     @api.depends('maintenance_actv_tracking_ids')
     def _compute_maintenance_actv_tracking_count(self):
         actv_tracking_data = self.env['maintenance.equipment.activity.tracking'].read_group([
             ('equipment_id', 'in', self.ids),
-            ], ['equipment_id'], ['equipment_id'])
+        ], ['equipment_id'], ['equipment_id'])
 
         result = dict((data['equipment_id'][0], data['equipment_id_count']) for data in actv_tracking_data)
 
@@ -216,7 +216,8 @@ class MaintenanceEquipment(models.Model):
         guideline = self.env['maintenance.guideline'].browse(self._context.get('default_maintenance_guideline_id'))
 
         values = {
-            'name': _('Preventive Maintenance - %s') % self.name if not guideline.name else '%s - %s' % (guideline.name, self.name),
+            'name': _('Preventive Maintenance - %s') % self.name if not guideline.name else '%s - %s' % (
+                guideline.name, self.name),
             'duration': guideline.maintenance_duration or self.maintenance_duration,
             'company_id': self.company_id.id or self.env.company.id,
             'user_id': self.technician_user_id.id,
@@ -225,7 +226,7 @@ class MaintenanceEquipment(models.Model):
             'equipment_id': self.id,
             'schedule_date': date,
             'request_date': date,
-            }
+        }
 
         if self.maintenance_team_id:
             values.update(maintenance_team_id=self.maintenance_team_id.id)
@@ -250,11 +251,11 @@ class MaintenanceEquipment(models.Model):
 
                 for equipment in equipments:
                     next_maintenance_todo = self.env['maintenance.request'].search([
-                                                    ('equipment_id', '=', equipment.id),
-                                                    ('maintenance_type', '=', 'preventive'),
-                                                    ('stage_id.done', '!=', True),
-                                                    ('close_date', '=', False),
-                                                    ], order="request_date asc", limit=1)
+                        ('equipment_id', '=', equipment.id),
+                        ('maintenance_type', '=', 'preventive'),
+                        ('stage_id.done', '!=', True),
+                        ('close_date', '=', False),
+                    ], order="request_date asc", limit=1)
                     if next_maintenance_todo:
                         next_date = next_maintenance_todo.request_date
                         # If the new date still in the past, we set it for today
@@ -296,13 +297,13 @@ class MaintenanceEquipment(models.Model):
                         ('equipment_id', '=', equipment.id),
                         ('maintenance_type', '=', 'preventive'),
                         ('stage_id.done', '=', False),
-                        ])
+                    ])
 
                     if not next_requests:
                         tracking_data = TrackingSudo.read_group([
-                                        ('equipment_activity_id', '=', guideline.equipment_activity_id.id),
-                                        ('equipment_id', '=', equipment.id),
-                                        ], ['equipment_activity_id', 'tracking_eauom_value'], 'tracking_eauom_value')
+                            ('equipment_activity_id', '=', guideline.equipment_activity_id.id),
+                            ('equipment_id', '=', equipment.id),
+                        ], ['equipment_activity_id', 'tracking_eauom_value'], 'tracking_eauom_value')
                         if not tracking_data:
                             continue
 
@@ -352,9 +353,9 @@ class MaintenanceEquipment(models.Model):
 class MaintenanceRequest(models.Model):
     _inherit = 'maintenance.request'
 
-    maintenance_guideline_id = fields.Many2one('maintenance.guideline',  'Guideline Of Maintenance',
-        domain="[('equipment_id', '=', equipment_id)]", check_company=True
-        )
+    maintenance_guideline_id = fields.Many2one('maintenance.guideline', 'Guideline Of Maintenance',
+                                               domain="[('equipment_id', '=', equipment_id)]", check_company=True
+                                               )
     equipment_activity_id = fields.Many2one('maintenance.equipment.activity', 'Equipment Activity',
-        related="maintenance_guideline_id.equipment_activity_id"
-        )
+                                            related="maintenance_guideline_id.equipment_activity_id"
+                                            )

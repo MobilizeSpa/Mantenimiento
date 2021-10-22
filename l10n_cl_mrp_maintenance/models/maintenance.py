@@ -17,17 +17,17 @@ class MaintenanceGuideline(models.Model):
     _inherit = 'maintenance.guideline'
 
     bom_id = fields.Many2one('mrp.bom', 'Bill of Material', check_company=True,
-        domain="[('type', '=', 'normal'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
-        help="Bill of Materials allow you to define the list of required components to make a maintenance."
-        )
+                             domain="[('type', '=', 'normal'), '|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+                             help="Bill of Materials allow you to define the list of required components to make a maintenance."
+                             )
 
 
 class MaintenanceTeam(models.Model):
     _inherit = 'maintenance.team'
 
     maintenance_location_id = fields.Many2one("stock.location", "Maintenance Location",
-        domain="['|', ('company_id', '=', company_id), ('company_id', '=', False), ('usage', 'in', ['production', 'customer'])]"
-        )
+                                              domain="['|', ('company_id', '=', company_id), ('company_id', '=', False), ('usage', 'in', ['production', 'customer'])]"
+                                              )
 
 
 class MaintenanceRequest(models.Model):
@@ -48,23 +48,23 @@ class MaintenanceRequest(models.Model):
 
         if not maintenance_location:
             maintenance_location = Location.search([
-                                    ('usage', 'in', ['production', 'customer']),
-                                    '|', ('company_id', '=', self.env.company.id),
-                                         ('company_id', '=', False),
-                                    ], limit=1)
+                ('usage', 'in', ['production', 'customer']),
+                '|', ('company_id', '=', self.env.company.id),
+                ('company_id', '=', False),
+            ], limit=1)
 
         return maintenance_location
 
     warehouse_id = fields.Many2one('stock.warehouse', string='Warehouse', required=True, readonly=True,
-        default=_default_warehouse_id, check_company=True
-        )
+                                   default=_default_warehouse_id, check_company=True
+                                   )
     bom_id = fields.Many2one('mrp.bom', 'Bill of Material',
-        related="maintenance_guideline_id.bom_id"
-        )
+                             related="maintenance_guideline_id.bom_id"
+                             )
     maintenance_location_id = fields.Many2one("stock.location", "Maintenance Location", check_company=True,
-        domain="['|', ('company_id', '=', company_id), ('company_id', '=', False), ('usage', 'in', ['production', 'customer'])]",
-        default=_default_maintenance_location
-        )
+                                              domain="['|', ('company_id', '=', company_id), ('company_id', '=', False), ('usage', 'in', ['production', 'customer'])]",
+                                              default=_default_maintenance_location
+                                              )
     procurement_group_id = fields.Many2one('procurement.group', 'Procurement Group', copy=False)
     picking_ids = fields.One2many('stock.picking', 'maintenance_id', string='Transfers')
     picking_count = fields.Integer(string='BoM Transfers', compute='_compute_picking_count')
@@ -73,8 +73,8 @@ class MaintenanceRequest(models.Model):
     def _compute_picking_count(self):
         for request in self:
             request.picking_count = len(request.picking_ids.filtered(
-                                                lambda p: p.location_dest_id == request.maintenance_location_id)
-                                                )
+                lambda p: p.location_dest_id == request.maintenance_location_id)
+            )
 
     @api.onchange('maintenance_team_id')
     def _onchange_maintenance_team(self):
@@ -88,16 +88,16 @@ class MaintenanceRequest(models.Model):
                     not r.picking_ids or any(p.state != 'done'
                                              for p in r.picking_ids
                                              if p.location_dest_id == r.maintenance_location_id)
-                    )
             )
+        )
 
         if bom_request_without_done_pickings:
             raise ValidationError(_(
                 "The following %s %s need a processed Bill of Material transfer request in order to continue"
-                ) % (
-                _(self._description),
-                ', '.join(bom_request_without_done_pickings.mapped('display_name')),
-                ))
+            ) % (
+                                      _(self._description),
+                                      ', '.join(bom_request_without_done_pickings.mapped('display_name')),
+                                  ))
 
         self.filtered(lambda r: r.stage_id.request_bom and not r.picking_ids)._action_launch_stock_rule()
 
@@ -110,8 +110,8 @@ class MaintenanceRequest(models.Model):
         action = self.env.ref('stock.action_picking_tree_all').read()[0]
 
         pickings = self.mapped('picking_ids').filtered(
-                                lambda p: p.location_dest_id == p.group_id.maintenance_id.maintenance_location_id
-                                )
+            lambda p: p.location_dest_id == p.group_id.maintenance_id.maintenance_location_id
+        )
         if len(pickings) > 1:
             action['domain'] = [('id', 'in', pickings.ids)]
         elif pickings:
@@ -135,7 +135,7 @@ class MaintenanceRequest(models.Model):
             default_picking_type_id=picking_id.picking_type_id.id,
             default_origin=self.name,
             default_group_id=picking_id.group_id.id
-            )
+        )
 
         return action
 
@@ -150,7 +150,8 @@ class MaintenanceRequest(models.Model):
         nonactive_test = False
 
         for request in self:
-            if not request.bom_id or not all(line.product_id.type in ('consu','product') for line in request.bom_id.bom_line_ids):
+            if not request.bom_id or not all(
+                    line.product_id.type in ('consu', 'product') for line in request.bom_id.bom_line_ids):
                 continue
 
             for line in request.bom_id.bom_line_ids:
@@ -180,15 +181,15 @@ class MaintenanceRequest(models.Model):
                 #                                     self.warehouse_id)
 
                 procurements.append(self.env['procurement.group'].Procurement(
-                                                                line.product_id,
-                                                                qty,
-                                                                line.product_uom_id,
-                                                                request.maintenance_location_id,
-                                                                line.display_name,
-                                                                request.name,
-                                                                request.company_id,
-                                                                values
-                                                                ))
+                    line.product_id,
+                    qty,
+                    line.product_uom_id,
+                    request.maintenance_location_id,
+                    line.display_name,
+                    request.name,
+                    request.company_id,
+                    values
+                ))
         if procurements:
             self.env['procurement.group'].with_context(active_test=not nonactive_test).run(procurements)
 
@@ -200,7 +201,7 @@ class MaintenanceRequest(models.Model):
             'name': self.name,
             'move_type': 'one',
             # 'partner_id': self.order_id.partner_shipping_id.id,
-            }
+        }
 
     def _prepare_procurement_values(self, line, group_id=False):
         """ Prepare specific key for moves or other components that will be created from a stock rule
@@ -217,7 +218,7 @@ class MaintenanceRequest(models.Model):
             # 'route_ids': self.route_id,
             'maintenance_id': self.id,
             'group_id': group_id,
-            }
+        }
 
         # if self.maintenance_location_id and self.maintenance_location_id.usage == 'production' and self.warehouse_id:
         #     values.update(route_ids=self.warehouse_id._find_global_route('l10n_cl_mrp_maintenance.route_warehouse0_bom', _('Pickup BoM')))
@@ -228,9 +229,10 @@ class MaintenanceRequest(models.Model):
 class MaintenanceEquipment(models.Model):
     _inherit = 'maintenance.equipment'
 
-    mbfm = fields.Selection([('hours', 'Hours'), ('days', 'Days')], string='MTBF Metric', default="days",
-        help='Mean Time Between Failure Measure'
-        )
+    mbfm_custom = fields.Selection(
+        [('hours', 'Hours'), ('days', 'Days')],
+        string='MTBF Metric', default="days",
+        help='Mean Time Between Failure Measure')
 
     def _register_hook(self):
         """ Patch models to correct the that should trigger """
@@ -238,13 +240,13 @@ class MaintenanceEquipment(models.Model):
         def make__compute_maintenance_request():
             """ Instanciate the _compute_maintenance_request. """
 
-            @api.depends('mbfm')
+            @api.depends('mbfm_custom')
             def _compute_maintenance_request(self):
                 for equipment in self:
                     maintenance_requests = equipment.maintenance_ids.filtered(
-                                                lambda x: x.maintenance_type == 'corrective' and x.stage_id.done
-                                                )
-                    mttr_days_factor = 1 if equipment.mbfm == 'days' else 24
+                        lambda x: x.maintenance_type == 'corrective' and x.stage_id.done
+                    )
+                    mttr_days_factor = 1 if equipment.mbfm_custom == 'days' else 24
                     mttr_days = 0
 
                     for maintenance in maintenance_requests:
@@ -256,15 +258,19 @@ class MaintenanceEquipment(models.Model):
                     maintenance = maintenance_requests.sorted(lambda x: x.request_date)
 
                     if len(maintenance) >= 1:
-                        equipment.mtbf = (maintenance[-1].request_date - equipment.effective_date).days * mttr_days_factor / len(maintenance)
+                        equipment.mtbf = (maintenance[
+                                              -1].request_date - equipment.effective_date).days * mttr_days_factor / len(
+                            maintenance)
 
                     equipment.latest_failure_date = maintenance and maintenance[-1].request_date or False
 
                     if equipment.mtbf:
-                        if equipment.mbfm == 'days':
-                            equipment.estimated_next_failure = equipment.latest_failure_date + relativedelta(days=equipment.mtbf)
+                        if equipment.mbfm_custom == 'days':
+                            equipment.estimated_next_failure = equipment.latest_failure_date + relativedelta(
+                                days=equipment.mtbf)
                         else:
-                            equipment.estimated_next_failure = equipment.latest_failure_date + relativedelta(hours=equipment.mtbf)
+                            equipment.estimated_next_failure = equipment.latest_failure_date + relativedelta(
+                                hours=equipment.mtbf)
                     else:
                         equipment.estimated_next_failure = False
 
