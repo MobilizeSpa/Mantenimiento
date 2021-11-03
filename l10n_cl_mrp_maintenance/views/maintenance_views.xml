@@ -257,51 +257,6 @@
                 <field name="bom_id"/>
             </xpath>
 
-            <xpath expr="//form/sheet/notebook" position="inside">
-                <page name="page_data" string="Archivos">
-                    <group>
-                        <group>
-                            <field name="image_ids" mode="kanban"
-                                   context="{'default_equipment_id': active_id, 'default_company_id': company_id}">
-                                <kanban>
-                                    <field name="id"/>
-                                    <field name="equipment_id"/>
-                                    <field name="image"/>
-                                    <field name="company_id" invisible="1"/>
-                                    <templates>
-                                        <t t-name="kanban-box">
-                                            <div class="oe_kanban_global_click">
-                                                <div class="o_kanban_image">
-                                                    <img t-att-src="kanban_image('maintenance.equipment.image', 'image', record.id.raw_value)"
-                                                         alt="Product" class="o_image_64_contain"/>
-                                                </div>
-                                                <div class="oe_kanban_details">
-                                                </div>
-                                            </div>
-                                        </t>
-                                    </templates>
-                                </kanban>
-
-                                <form string="Imagénes">
-                                    <sheet>
-                                        <group>
-                                            <group>
-                                                <field name="image" widget="image"/>
-                                            </group>
-                                        </group>
-                                        <field name="company_id" invisible="1"/>
-                                    </sheet>
-                                </form>
-
-                            </field>
-                        </group>
-                        <group>
-                            <field name="attachment_ids" string="Documentos" widget="many2many_binary"/>
-                        </group>
-                    </group>
-                </page>
-            </xpath>
-
         </field>
     </record>
 

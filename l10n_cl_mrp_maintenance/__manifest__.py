@@ -12,7 +12,7 @@
     """,
     'depends': ['mrp_maintenance', 'l10n_cl_maintenance'],
     'data': [
-        'security/ir.model.access.csv',
+        # 'security/ir.model.access.csv',
         'data/maintenance_data.xml',
         'views/maintenance_views.xml',
         ],

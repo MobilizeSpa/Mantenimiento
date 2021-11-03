@@ -231,8 +231,6 @@ class MaintenanceEquipment(models.Model):
     # _inherits = 'image.mixin'
 
     image = fields.Binary(string="Image", attachment=True)
-    image_ids = fields.One2many('maintenance.equipment.image', 'equipment_id', 'Imágenes', required=False)
-    attachment_ids = fields.Many2many('ir.attachment', string='Fotos y archivos')
 
     mbfm_custom = fields.Selection(
         [('hours', 'Hours'), ('days', 'Days')],
