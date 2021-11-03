@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_maintenance.equipment.image,l10n_cl_mrp_maintenance.maintenance.equipment.image,model_maintenance_equipment_image,,1,1,1,1

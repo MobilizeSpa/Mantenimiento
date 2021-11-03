@@ -85,6 +85,8 @@ class MaintenanceGuideline(models.Model):
     period = fields.Integer('Frequency between each preventive maintenance')
     value = fields.Integer('Value for preventive maintenance')
 
+    activities_ids = fields.One2many('maintenance.guideline.activity', 'guideline_id', 'Activities')
+
     @api.depends('guideline_type_id', 'uom_id', 'measurement', 'period', 'value')
     def _compute_name(self):
         for record in self:
@@ -132,6 +134,17 @@ class MaintenanceGuideline(models.Model):
                                       ',\n '.join(invalid_records.mapped('display_name')),
                                       _(self._description),
                                   ))
+
+
+class MaintenanceGuidelineActivity(models.Model):
+    _name = 'maintenance.guideline.activity'
+    _description = 'Maintenance Guideline Activity'
+    _check_company_auto = True
+
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
+    guideline_id = fields.Many2one('maintenance.guideline', string='Guideline', ondelete='cascade', index=True,
+                                   check_company=True)
+    name = fields.Char('Name', required=True)
 
 
 class MaintenanceEquipmentActivityTracking(models.Model):
@@ -190,6 +203,7 @@ class MaintenanceEquipment(models.Model):
     maintenance_guideline_ids = fields.One2many('maintenance.guideline',
                                                 'equipment_id',
                                                 'Guideline Of Maintenances')
+
     maintenance_actv_tracking_ids = fields.One2many('maintenance.equipment.activity.tracking', 'equipment_id',
                                                     'Activity Tracking'
                                                     )

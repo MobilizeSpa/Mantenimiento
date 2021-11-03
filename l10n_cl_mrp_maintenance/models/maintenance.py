@@ -228,6 +228,11 @@ class MaintenanceRequest(models.Model):
 
 class MaintenanceEquipment(models.Model):
     _inherit = 'maintenance.equipment'
+    # _inherits = 'image.mixin'
+
+    image = fields.Binary(string="Image", attachment=True)
+    image_ids = fields.One2many('maintenance.equipment.image', 'equipment_id', 'Imágenes', required=False)
+    attachment_ids = fields.Many2many('ir.attachment', string='Fotos y archivos')
 
     mbfm_custom = fields.Selection(
         [('hours', 'Hours'), ('days', 'Days')],
@@ -299,3 +304,13 @@ class MaintenanceEquipment(models.Model):
                 break
 
         super(MaintenanceEquipment, self)._register_hook()
+
+
+class MaintenanceEquipmentIMage(models.Model):
+    _name = 'maintenance.equipment.image'
+    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
+
+    equipment_id = fields.Many2one('maintenance.equipment', string='Equipment', ondelete='cascade', index=True,
+                                   check_company=True)
+
+    image = fields.Binary(string="Image", attachment=True)

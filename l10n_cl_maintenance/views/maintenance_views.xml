@@ -249,6 +249,7 @@
                     <hr/>
                     <group>
                         <group>
+                            <field name="equipment_id" string="Equipo"/>
                             <field name="guideline_type_id"/>
                         </group>
                         <group>
@@ -279,6 +280,35 @@
             </form>
         </field>
     </record>
+
+    <record id="maintenance_guideline_view_tree" model="ir.ui.view">
+        <field name="name">maintenance_guideline_view_tree</field>
+        <field name="model">maintenance.guideline</field>
+        <field name="arch" type="xml">
+            <tree string="maintenance_guideline_tree">
+                <field name="equipment_id"/>
+                <field name="name"/>
+                <field name="guideline_type_id"/>
+                <field name="equipment_activity_id"/>
+                <field name="equipment_activity_uomctg_id" invisible="1"/>
+                <field name="measurement" widget="radio" options="{'horizontal': true}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="maintenance_guideline_action" model="ir.actions.act_window">
+        <field name="name">Pautas de Mantenimiento</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">maintenance.guideline</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="maintenance_guideline_menu"
+              name="Pautas de Mantenimiento"
+              parent="maintenance.menu_maintenance_configuration"
+              action="maintenance_guideline_action"
+              sequence="5"/>
 
 
     <!-- equipment activity tracking : views -->
@@ -433,6 +463,7 @@
                                 </t>
                             </templates>
                         </kanban>
+
                         <form string="Guideline Of Maintenance">
                             <sheet>
                                 <field name="name" readonly="1" attrs="{'invisible': [('name', '=', False)]}"/>
