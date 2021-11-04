@@ -6,5 +6,9 @@ access_equipment_activity_user,equipment.activity.user,model_maintenance_equipme
 access_equipment_activity_admin_user,equipment.activity system user,model_maintenance_equipment_activity,maintenance.group_equipment_manager,1,1,1,1
 access_guideline_type_user,guideline.type.user,model_maintenance_guideline_type,base.group_user,1,0,0,0
 access_guideline_type_admin_user,guideline.type system user,model_maintenance_guideline_type,maintenance.group_equipment_manager,1,1,1,1
-access_guideline_activity_user,guideline.activity.user,model_maintenance_guideline_activity,base.group_user,1,0,0,0
-access_guideline_activity_admin_user,guideline.activity system user,model_maintenance_guideline_activity,maintenance.group_equipment_manager,1,1,1,1
+access_mnt_guideline_activity_user,mnt_guideline.activity.user,model_maintenance_guideline_activity,base.group_user,1,0,0,0
+access_mnt_guideline_activity_admin_user,mnt_guideline.activity system user,model_maintenance_guideline_activity,maintenance.group_equipment_manager,1,1,1,1
+
+
+access_guideline_activity_user,guideline.activity.user,model_guideline_activity,base.group_user,1,0,0,0
+access_guideline_activity_admin_user,guideline.activity system user,model_guideline_activity,maintenance.group_equipment_manager,1,1,1,1

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="guideline_activity_form_view" model="ir.ui.view">
+            <field name="name">l10n_cl_maintenance.guideline_activity.form</field>
+            <field name="model">guideline.activity</field>
+            <field name="arch" type="xml">
+                <form string="guideline activity">
+                    <sheet>
+                        <div class="oe_title">
+                            <!--                            <label for="name"/>-->
+                            <h1>
+                                <field name="name" placeholder="Name..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="url_video" widget="url"/>
+                            </group>
+                            <group>
+                                <field name="description"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="att_documents" widget="many2many_binary"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="guideline_activity_tree_view" model="ir.ui.view">
+            <field name="name">l10n_cl_maintenance.guideline_activity.tree</field>
+            <field name="model">guideline.activity</field>
+            <field name="arch" type="xml">
+                <tree string="guideline activity">
+                    <field name="sequence"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <button name="action_open_url_video"
+                            icon="fa-youtube-play"
+                            type="object" string="Ver vídeo"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="guideline_activity_search_view" model="ir.ui.view">
+            <field name="name">l10n_cl_maintenance.guideline_activity.search</field>
+            <field name="model">guideline.activity</field>
+            <field name="arch" type="xml">
+                <search string="guideline activity">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Code" name="code" domain="[]"/>
+                        <filter string="Name" name="name"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="guideline_activity_kanban_view" model="ir.ui.view">
+            <field name="name">l10n_cl_maintenance.guideline_activity.kanban</field>
+            <field name="model">guideline.activity</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
+                    <field name="code"/>
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_details">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                            (<field name="code"/>)
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+
+                                            <a type="button">
+                                                <button name="action_open_url_video"
+                                                        type="object" icon="fa-youtube-play" class="oe_highlight">
+                                                    <span><i class="fa fa-youtube-play"/></span>
+                                                </button>
+
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                    <!--                                    <div class="oe_kanban_content">-->
+                                    <!--                                        <div class="o_kanban_record_bottom">-->
+                                    <!--                                            <div class="oe_kanban_bottom_left"/>-->
+                                    <!--                                            <div class="oe_kanban_bottom_right">-->
+                                    <!--                                                <button name="action_open_url_video"-->
+                                    <!--                                                        type="object" string="Ver vídeo"/>-->
+                                    <!--                                            </div>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="guideline_activity_act_window" model="ir.actions.act_window">
+            <field name="name">Activities</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">guideline.activity</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    There is no activities click here to add new activity.
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

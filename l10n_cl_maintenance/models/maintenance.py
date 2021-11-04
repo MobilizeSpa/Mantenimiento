@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, Warning
 
 
 class MaintenanceEquipmentActivity(models.Model):
@@ -57,6 +57,7 @@ class MaintenanceGuidelineType(models.Model):
 
 class MaintenanceGuideline(models.Model):
     _name = 'maintenance.guideline'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Maintenance Guideline'
     _check_company_auto = True
 
@@ -85,7 +86,8 @@ class MaintenanceGuideline(models.Model):
     period = fields.Integer('Frequency between each preventive maintenance')
     value = fields.Integer('Value for preventive maintenance')
 
-    activities_ids = fields.One2many('maintenance.guideline.activity', 'guideline_id', 'Activities')
+    activities_ids = fields.One2many('maintenance.guideline.activity', 'guideline_id', 'Activities', copy=True,
+                                     auto_join=True)
 
     @api.depends('guideline_type_id', 'uom_id', 'measurement', 'period', 'value')
     def _compute_name(self):
@@ -141,10 +143,38 @@ class MaintenanceGuidelineActivity(models.Model):
     _description = 'Maintenance Guideline Activity'
     _check_company_auto = True
 
+    sequence = fields.Integer(required=True, default=10)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
-    guideline_id = fields.Many2one('maintenance.guideline', string='Guideline', ondelete='cascade', index=True,
+    guideline_id = fields.Many2one('maintenance.guideline', string='Guideline', required=True, ondelete='cascade',
+                                   index=True, copy=False,
                                    check_company=True)
-    name = fields.Char('Name', required=True)
+    employee_id = fields.Many2one(comodel_name='hr.employee', string='Employee', required=True)
+    state = fields.Selection(
+        string='State',
+        selection=[('draft', 'Draft'),
+                   ('done', 'Done'), ],
+        required=True, default='draft')
+
+    activity_id = fields.Many2one(comodel_name='guideline.activity',
+                                  string='Activity', required=True)
+
+    activity_att_documents = fields.Many2many(related='activity_id.att_documents')
+
+    activity_url_video = fields.Char(related='activity_id.url_video')
+
+    date_start = fields.Date(string='Date start', required=True)
+    date_done = fields.Date(string='Date done', required=True)
+
+    def action_open_url_video(self):
+        self.ensure_one()
+        if self.activity_url_video:
+            return {
+                'type': 'ir.actions.act_url',
+                'url': self.activity_url_video,
+                'target': 'new',
+            }
+        else:
+            raise Warning(_(f'the activity does not have an assigned video'))
 
 
 class MaintenanceEquipmentActivityTracking(models.Model):
