@@ -13,11 +13,16 @@
                                 <field name="name" placeholder="Name..."/>
                             </h1>
                         </div>
+                        <group name="first" col="2">
+                            <field name="parent_id" class="oe_inline"/>
+                        </group>
                         <group>
                             <group>
                                 <field name="code"/>
                             </group>
                             <group>
+                                <field name="complete_name"/>
+                                <field name="parent_path"/>
                                 <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                         </group>
@@ -28,7 +33,7 @@
                                 <field name="description" type="html"/>
                                 <div class="d-none oe_clear"/>
                             </page>
-                            <page name="urls" string="Urls">
+                            <page name="urls" string="Links">
                                 <field
                                         name="url_ids"
                                         widget="section_and_note_one2many"
@@ -49,6 +54,21 @@
                                 </group>
                             </page>
 
+                            <page name="urls" string="Child's">
+                                <field
+                                        name="child_ids"
+                                        widget="section_and_note_one2many"
+                                        context="{'default_activity_id' : id}"
+                                        mode="tree,form">
+
+                                    <tree string="Activity Child's"
+                                          editable="bottom">
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                    </tree>
+                                </field>
+                            </page>
+
 
                         </notebook>
                     </sheet>
@@ -62,6 +82,7 @@
             <field name="arch" type="xml">
                 <tree string="guideline activity">
                     <field name="sequence" widget="handle"/>
+                    <field name="complete_name"/>
                     <field name="code"/>
                     <field name="name"/>
                     <button name="action_open_url_video"
@@ -138,7 +159,7 @@
             <field name="name">Activities</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">guideline.activity</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">tree,kanban,form</field>
             <field name="context">{}</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">

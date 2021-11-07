@@ -66,22 +66,46 @@
             <field name="model">maintenance.request</field>
             <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//form/sheet/div[1]" position="replace"/>
+
+                <field name="category_id" position="after">
+                    <field name="maintenance_guideline_id"
+                           attrs="{'invisible': [('equipment_id', '=', False)]}"
+                           context="{'default_company_id':company_id}"
+                           options="{'no_create': 1, 'no_edit': 1,}"
+                    />
+                </field>
+
+
+                <xpath expr="//div[@class='oe_right']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
                 <xpath expr="//div[@class='oe_title']" position="before">
                     <div class="oe_button_box" name="button_box">
                         <button class="oe_stat_button" type="object" name="get_tasks"
-                                icon="fa-table">
+                                icon="fa-list-ul">
                             <field string="Tasks" name="task_count" widget="statinfo"/>
                         </button>
 
+                    </div>
+
+                    <div attrs="{'invisible': [('archive', '=', False)]}">
+                        <field name="kanban_state" class="oe_inline float-right mr-3" widget="state_selection"/>
+                        <span class="badge badge-warning float-right">Canceled</span>
+                    </div>
+                    <div class="oe_right">
+                        <field name="kanban_state" class="oe_inline" widget="state_selection"/>
                     </div>
                 </xpath>
 
                 <xpath expr="//field[@name='email_cc']" position="after">
                     <br/>
                     <field name="task_count" invisible="1"/>
-                    <field name="task_done_count" widget="gauge"
-                           style="width:108px;height:81px;cursor:pointer;"
-                           options="{'max_field': 'task_count'}"/>
+                    <field name="task_done_count" widget="gauge" nolabel="1"
+                           options="{'max_field': 'task_count',
+                            'label_field': 'definition_suffix',
+                             'style': 'width:120px; height: 80px;'}"/>
                 </xpath>
             </field>
         </record>
@@ -95,7 +119,7 @@
 
                 <xpath expr="//field[@name='activity_state']" position="after">
                     <!-- Add your fields or attributes here -->
-                    <field name="task_done_percent"/>
+                    <field name="task_done_percent" invisible="1"/>
                 </xpath>
 
                 <xpath expr="//div[@class='oe_clear']" position="before">
@@ -107,5 +131,21 @@
 
             </field>
         </record>
+
+
+        <!--        <record id="hr_equipment_request_view_form" model="ir.ui.view">-->
+        <!--            <field name="name">equipment.request.form</field>-->
+        <!--            <field name="model">maintenance.request</field>-->
+        <!--            <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>-->
+        <!--            <field name="arch" type="xml">-->
+        <!--                <field name="category_id" position="after">-->
+        <!--                    <field name="maintenance_guideline_id"-->
+        <!--                           attrs="{'invisible': [('equipment_id', '=', False)]}"-->
+        <!--                           context="{'default_company_id':company_id}"-->
+        <!--                           options="{'no_create': 1, 'no_edit': 1,}"-->
+        <!--                    />-->
+        <!--                </field>-->
+        <!--            </field>-->
+        <!--        </record>-->
     </data>
 </odoo>
