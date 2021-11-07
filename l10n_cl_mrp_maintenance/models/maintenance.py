@@ -58,6 +58,7 @@ class MaintenanceRequest(models.Model):
     warehouse_id = fields.Many2one('stock.warehouse', string='Warehouse', required=True, readonly=True,
                                    default=_default_warehouse_id, check_company=True
                                    )
+
     bom_id = fields.Many2one('mrp.bom', 'Bill of Material',
                              related="maintenance_guideline_id.bom_id"
                              )

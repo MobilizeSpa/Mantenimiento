@@ -16,11 +16,17 @@
         # 'security/maintenance.xml',
         'security/ir.model.access.csv',
 
+        'data/sequences.xml',
         # 'data/maintenance_data.xml',
         # 'data/mail_data.xml',
 
         'views/guideline_activity.xml',
-        'views/maintenance_views.xml',
+
+        'views/maintenance_guideline.xml',
+        'views/maintenance_equipment.xml',
+        # 'views/maintenance_equipment_activity.xml',
+
+        'views/maintenance_request.xml',
 
         # menu
         'menus/guideline.xml',

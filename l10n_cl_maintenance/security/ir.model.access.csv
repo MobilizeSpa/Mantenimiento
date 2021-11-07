@@ -1,6 +1,8 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_guideline_user,guideline.user,model_maintenance_guideline,base.group_user,1,0,0,0
 access_guideline_admin_user,guideline.admin.user,model_maintenance_guideline,maintenance.group_equipment_manager,1,1,1,1
+
+
 access_tracking_system_user,activity.tracking system user,model_maintenance_equipment_activity_tracking,base.group_user,1,1,1,1
 access_equipment_activity_user,equipment.activity.user,model_maintenance_equipment_activity,base.group_user,1,0,0,0
 access_equipment_activity_admin_user,equipment.activity system user,model_maintenance_equipment_activity,maintenance.group_equipment_manager,1,1,1,1
@@ -12,3 +14,11 @@ access_mnt_guideline_activity_admin_user,mnt_guideline.activity system user,mode
 
 access_guideline_activity_user,guideline.activity.user,model_guideline_activity,base.group_user,1,0,0,0
 access_guideline_activity_admin_user,guideline.activity system user,model_guideline_activity,maintenance.group_equipment_manager,1,1,1,1
+access_guideline_activity_url_user,guideline.activity_url_.user,model_activity_url,base.group_user,1,0,0,0
+access_guideline_activity_url_admin_user,guideline.activity_url_ system user,model_activity_url,maintenance.group_equipment_manager,1,1,1,1
+access_guideline_url_user,guideline.url_.user,model_guideline_url,base.group_user,1,0,0,0
+access_guideline_url_admin_user,guideline.url_ system user,model_guideline_url,maintenance.group_equipment_manager,1,1,1,1
+
+
+access_maintenance_request_task_user,maintenance_request_task.user,model_maintenance_request_task,base.group_user,1,0,0,0
+access_maintenance_request_task_admin_user,maintenance_request_task.admin.user,model_maintenance_request_task,maintenance.group_equipment_manager,1,1,1,1

@@ -9,7 +9,6 @@
                 <form string="guideline activity">
                     <sheet>
                         <div class="oe_title">
-                            <!--                            <label for="name"/>-->
                             <h1>
                                 <field name="name" placeholder="Name..."/>
                             </h1>
@@ -17,16 +16,41 @@
                         <group>
                             <group>
                                 <field name="code"/>
-                                <field name="url_video" widget="url"/>
                             </group>
                             <group>
-                                <field name="description"/>
                                 <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                         </group>
-                        <group>
-                            <field name="att_documents" widget="many2many_binary"/>
-                        </group>
+
+
+                        <notebook>
+                            <page name="description_page" string="Description">
+                                <field name="description" type="html"/>
+                                <div class="d-none oe_clear"/>
+                            </page>
+                            <page name="urls" string="Urls">
+                                <field
+                                        name="url_ids"
+                                        widget="section_and_note_one2many"
+                                        context="{'default_activity_id' : id}"
+                                        mode="tree,form">
+
+                                    <tree string="Activies Lines"
+                                          editable="bottom">
+                                        <field name="name" widget="url"/>
+                                        <field name="description"/>
+                                    </tree>
+                                </field>
+                            </page>
+
+                            <page name="files" string="Files">
+                                <group>
+                                    <field name="att_documents" widget="many2many_binary"/>
+                                </group>
+                            </page>
+
+
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -37,7 +61,7 @@
             <field name="model">guideline.activity</field>
             <field name="arch" type="xml">
                 <tree string="guideline activity">
-                    <field name="sequence"/>
+                    <field name="sequence" widget="handle"/>
                     <field name="code"/>
                     <field name="name"/>
                     <button name="action_open_url_video"

@@ -1,10 +1,10 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* l10n_cl_mrp_maintenance
-# 
+#
 # Translators:
 # Pedro Antonio Valdés Guibert <peterjunior0224@gmail.com>, 2020
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
@@ -56,22 +56,22 @@ msgid "Warehouse"
 msgstr "Almacén"
 
 #. module: l10n_cl_mrp_maintenance
-#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_equipment__mbfm_custom_custom
+#: model:ir.model.fields,field_description:l10n_cl_mrp_maintenance.field_maintenance_equipment__mbfm
 msgid "MTBF Metric"
 msgstr "Métrica del Tiempo medio entre fallos"
 
 #. module: l10n_cl_mrp_maintenance
-#: model:ir.model.fields,help:l10n_cl_mrp_maintenance.field_maintenance_equipment__mbfm_custom
+#: model:ir.model.fields,help:l10n_cl_mrp_maintenance.field_maintenance_equipment__mbfm
 msgid "Mean Time Between Failure Measure"
 msgstr "Medición del Tiempo medio entre fallos"
 
 #. module: l10n_cl_mrp_maintenance
-#: model:ir.model.fields.selection,name:l10n_cl_mrp_maintenance.selection__maintenance_equipment__mbfm_custom__hours
+#: model:ir.model.fields.selection,name:l10n_cl_mrp_maintenance.selection__maintenance_equipment__mbfm__hours
 msgid "Hours"
 msgstr "Horas"
 
 #. module: l10n_cl_mrp_maintenance
-#: model:ir.model.fields.selection,name:l10n_cl_mrp_maintenance.selection__maintenance_equipment__mbfm_custom__days
+#: model:ir.model.fields.selection,name:l10n_cl_mrp_maintenance.selection__maintenance_equipment__mbfm__days
 msgid "Days"
 msgstr "Días"
 
@@ -82,8 +82,8 @@ msgstr "Métrica del Tiempo medio entre fallos"
 
 #. module: l10n_cl_mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.maintenance_equipment_view_form_inherit_mrp
-msgid "<span attrs=\"{'invisible': [('mbfm_custom', '=', 'hours')]}\">days</span><span attrs=\"{'invisible': [('mbfm_custom', '=', 'days')]}\">hours</span>"
-msgstr "<span attrs=\"{'invisible': [('mbfm_custom', '=', 'hours')]}\">días</span><span attrs=\"{'invisible': [('mbfm_custom', '=', 'days')]}\">horas</span>"
+msgid "<span attrs=\"{'invisible': [('mbfm', '=', 'hours')]}\">days</span><span attrs=\"{'invisible': [('mbfm', '=', 'days')]}\">hours</span>"
+msgstr "<span attrs=\"{'invisible': [('mbfm', '=', 'hours')]}\">días</span><span attrs=\"{'invisible': [('mbfm', '=', 'days')]}\">horas</span>"
 
 #. module: l10n_cl_mrp_maintenance
 #: model:maintenance.stage,name:l10n_cl_mrp_maintenance.stage_5
@@ -154,5 +154,4 @@ msgstr "Hecho"
 #: model_terms:ir.ui.view,arch_db:l10n_cl_mrp_maintenance.hr_equipment_request_view_form
 msgid "BoM Delivery"
 msgstr "Entrega de LdM"
-
 

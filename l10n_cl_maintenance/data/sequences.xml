@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="so_web_new_sequence" model="ir.sequence">
+            <field name="name">maintenance.guideline.request - SEQUENCE</field>
+            <field name="code">mtn.request.sequence</field>
+            <field name="prefix">PR/%(y)s/</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="True" name="use_date_range"/>
+            <field name="padding">4</field>
+            <field name="implementation">no_gap</field>
+        </record>
+    </data>
+</odoo>
