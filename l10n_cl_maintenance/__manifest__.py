@@ -28,6 +28,8 @@
 
         'views/maintenance_request.xml',
 
+        'wizard/guideline_line_confirm.xml',
+
         # menu
         'menus/guideline.xml',
 

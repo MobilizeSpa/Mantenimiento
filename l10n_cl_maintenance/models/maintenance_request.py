@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class MaintenanceRequestTask(models.Model):
@@ -28,11 +29,22 @@ class MaintenanceRequestTask(models.Model):
 
     def action_draft(self):
         self.ensure_one()
-        self.state = 'draft'
+        tasks_request = self.search([('request_id', '=', self.request_id.id)])
+        for task in tasks_request:
+            if self.activity_id.name in task.activity_id.complete_name:
+                task.state = 'draft'
 
     def action_confirm(self):
         self.ensure_one()
-        self.state = 'done'
+        if self.activity_id.parent_id:
+            task_dependent = self.search(
+                [('activity_id', '=', self.activity_id.parent_id.id), ('request_id', '=', self.request_id.id)])
+            if task_dependent and task_dependent.state == 'done':
+                self.state = 'done'
+            else:
+                raise ValidationError(_(f'Task {task_dependent.name} pending validation'))
+        else:
+            self.state = 'done'
 
     @api.model
     def create(self, values):
@@ -65,48 +77,31 @@ class MaintenanceRequest(models.Model):
         'Advance percentage', compute='_compute_task_done_percent',
         help='Percentage of completed tasks')
 
-    @api.depends('task_ids')
+    task_done_count = fields.Integer(
+        'Advance', compute='_compute_task_done_count',
+        help='Number of completed tasks')
+
+    @api.depends('task_ids', 'task_done_count')
     def _compute_task_done_percent(self):
         for rec in self:
             task_done_percent = 0
             if rec.task_ids:
-                len_tasks = len(rec.task_ids)
-                len_done = rec.task_ids.search_count([('state', '=', 'done')])
-                value = (len_done / len_tasks) * 100
+                cant_tasks = len(rec.task_ids)
+                value = (rec.task_done_count / cant_tasks) * 100
                 task_done_percent = value
             rec.task_done_percent = task_done_percent
-
-    task_done_count = fields.Integer(
-        'Advance', compute='_compute_task_done_count',
-        help='Number of completed tasks')
 
     @api.depends('task_ids')
     def _compute_task_done_count(self):
         for rec in self:
             task_done_count = 0
             if rec.task_ids:
-                task_done_count = rec.task_ids.search_count([('state', '=', 'done')])
+                tasks_done = rec.task_ids.filtered(lambda l: l.state == 'done')
+                # task_done_count = rec.task_ids.search_count([('state', '=', 'done')])
+                if tasks_done:
+                    task_done_count = len(tasks_done)
+
             rec.task_done_count = task_done_count
-    # task_state = fields.Selection([
-    #     ('todo', 'To do'),
-    #     ('process', 'Process'),
-    #     ('done', 'Done')], string='Task State',
-    #     compute='_compute_task_state',
-    #     help='Status based on tasks\nTo do: All tasks to be done\n'
-    #          'process: Some tasks in progress\ndone: all tasks finished.')
-    #
-    # @api.depends('task_ids')
-    # def _compute_task_state(self):
-    #     for rec in self:
-    #         len_task = len(self.task_ids)
-    #         len_draft = rec.task_ids.search_count([('state', '=', 'draft')])
-    #         len_done = len_task - len_draft
-    #         if len_task == len_draft:
-    #             rec.task_state = 'todo'
-    #         elif len_task == len_done:
-    #             rec.task_state = 'done'
-    #         else:
-    #             rec.task_state = 'process'
 
     task_count = fields.Integer('Quantity activities', compute='compute_count_tasks')
 
@@ -131,10 +126,10 @@ class MaintenanceRequest(models.Model):
         return action
 
     def write(self, values):
-
         # Add code here
         if 'maintenance_guideline_id' in values:
             maintenance_guideline_id = self.maintenance_guideline_id.browse(int(values.get('maintenance_guideline_id')))
+            maintenance_guideline_id.bool_in_request = True
             common_activities = maintenance_guideline_id.activities_ids
             data_task = []
             for activity in common_activities:
@@ -142,9 +137,6 @@ class MaintenanceRequest(models.Model):
                                              request_id=self.id)))
             values.update(dict(task_ids=data_task))
             if self.task_ids:
-                # for task in self.task_ids:
-                #     # if not task.activity_id in maintenance_guideline_id.activities_ids.mapped('activity_id'):
-                #     task.unlink()
                 self.task_ids = [(6, 0, [])]
 
         return super(MaintenanceRequest, self).write(values)
@@ -155,6 +147,7 @@ class MaintenanceRequest(models.Model):
         res = super(MaintenanceRequest, self).create(values)
         if 'maintenance_guideline_id' in values:
             maintenance_guideline_id = self.maintenance_guideline_id.browse(int(values.get('maintenance_guideline_id')))
+            maintenance_guideline_id.bool_in_request = True
             common_activities = maintenance_guideline_id.activities_ids
             data_task = []
             for activity in common_activities:
@@ -162,3 +155,20 @@ class MaintenanceRequest(models.Model):
                                              request_id=res.id)))
             res.write(dict(task_ids=data_task))
         return res
+
+        # res = super(MaintenanceRequest, self).create(values)
+        # if 'maintenance_guideline_id' in values:
+        #     maintenance_guideline_id = self.maintenance_guideline_id.browse(int(values.get('maintenance_guideline_id')))
+        #     common_activities = maintenance_guideline_id.activities_ids.mapped('activity_id')
+        #     set_activity = set()
+        #     data_task = []
+        #     for activity in common_activities:
+        #         names = activity.complete_name.split('/')
+        #         for name in names:
+        #             act_name = self.env['guideline.activity'].sudo().search([('name', '=ilike', name.strip())], limit=1)
+        #             if act_name not in set_activity:
+        #                 data_task.append((0, 0, dict(activity_id=act_name.id,
+        #                                              request_id=res.id)))
+        #                 set_activity.add(act_name)
+        #     res.write(dict(task_ids=data_task))
+        # return res

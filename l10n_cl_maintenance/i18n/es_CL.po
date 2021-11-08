@@ -1,0 +1,1020 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_cl_maintenance
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e-20210201\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-08 14:17+0000\n"
+"PO-Revision-Date: 2021-11-08 10:37-0500\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es_CL\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__maintenance_type
+msgid " Maintenance type"
+msgstr " Tipo de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: code:addons/l10n_cl_maintenance/models/guideline_activity.py:0
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (copia)"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_request_form_inherit
+msgid "<span class=\"badge badge-warning float-right\">Canceled</span>"
+msgstr "<span class=\"badge badge-warning float-right\">Cancelado</span>"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_kanban
+msgid "<strong>Equipments:</strong>"
+msgstr "<strong>Equipamiento</strong>"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_kanban
+msgid "<strong>Maintenance:</strong>"
+msgstr "<strong>Mantenimiento</strong>"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_needaction
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_needaction
+msgid "Action Needed"
+msgstr "Acción necesaria"
+
+#. module: l10n_cl_maintenance
+#: model:ir.ui.menu,name:l10n_cl_maintenance.guideline_menu_root
+msgid "Actions"
+msgstr "Acciones"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_form
+msgid "Activies Lines"
+msgstr "Líneas de actividad"
+
+#. module: l10n_cl_maintenance
+#: model:ir.actions.act_window,name:l10n_cl_maintenance.guideline_activity_act_window
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activities_ids
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activity_ids
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_ids
+#: model:ir.ui.menu,name:l10n_cl_maintenance.guideline_activity_menu
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_form
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url__activity_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__activity_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_id
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_request_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_tracking_view_search
+msgid "Activity"
+msgstr "Actividad"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_form_view
+msgid "Activity Child's"
+msgstr "Activity Child's"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activity_exception_decoration
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Actividad Decoración de excepción"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_search
+msgid "Activity Name"
+msgstr "Nombre de la actividad"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activity_state
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment__maintenance_actv_tracking_ids
+msgid "Activity Tracking"
+msgstr "Seguimiento de actividad"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment__maintenance_actv_tracking_count
+msgid "Activity Tracking Count"
+msgstr "Seguimientos"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_tracking_view_search
+msgid "Activity Tracking by Date"
+msgstr "Seguimiento de la actividad por fecha"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activity_type_icon
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.actions.act_window,help:l10n_cl_maintenance.hr_equipment_action_from_activity_form
+msgid "Add a new equipment"
+msgstr "Añadir un nuevo equipo"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.actions.act_window,help:l10n_cl_maintenance.maintenance_equipment_activity_action
+msgid "Add a new equipment activity"
+msgstr "Añadir una nueva actividad de equipo"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.actions.act_window,help:l10n_cl_maintenance.maintenance_guideline_type_action
+msgid "Add a new equipment guideline type"
+msgstr "Añadir un nuevo tipo de pauta de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.actions.act_window,help:l10n_cl_maintenance.hr_equipment_request_action_link_from_activity_form
+msgid "Add a new maintenance request"
+msgstr "Añadir una nueva petición de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request__task_done_count
+msgid "Advance"
+msgstr "Avance"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request__task_done_percent
+msgid "Advance percentage"
+msgstr "Porcentaje de avance"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_search_view
+msgid "Archived"
+msgstr "Archivado"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields.selection,name:l10n_cl_maintenance.selection__maintenance_guideline__measurement__fixed
+msgid "At reached value"
+msgstr "Al alcanzar el valor"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_attachment_count
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_attachment_count
+msgid "Attachment Count"
+msgstr "Recuento de anexos"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__child_ids
+msgid "Child Actities"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_form_view
+msgid "Child's"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__code
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__activity_code
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_search_view
+msgid "Code"
+msgstr "Código"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__company_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__company_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__company_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__company_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__company_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__company_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__complete_name
+msgid "Complete Name"
+msgstr "Nombre completo"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_request_task_view_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__equipment_activity_uomctg_id
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__equipment_activity_uomctg_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the same category. The "
+"conversion will be made based on the ratios."
+msgstr ""
+"La conversión entre unidades de medida sólo puede producirse si pertenecen a la misma categoría. "
+"La conversión se hará en función de las relaciones."
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields.selection,name:l10n_cl_maintenance.selection__maintenance_guideline__maintenance_type__corrective
+msgid "Corrective"
+msgstr "Correctivo"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url__create_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__create_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url__create_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__create_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__create_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__create_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__create_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__create_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url__description
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__description
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url__description
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__description
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_form_view
+msgid "Description"
+msgstr "Descripción"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request__display_name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__att_documents
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__att_documents
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__activity_att_documents
+msgid "Documents"
+msgstr "Documentos"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields.selection,name:l10n_cl_maintenance.selection__maintenance_request_task__state__done
+msgid "Done"
+msgstr "Hecho"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_request_task_view_form
+msgid "Draft"
+msgstr "Por Hacer"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+msgid "Duration:"
+msgstr "Duración:"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__employee_id
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__equipment_count
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__equipment_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__equipment_id
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_tracking_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_form
+msgid "Equipment"
+msgstr "Equipo"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_tree
+msgid "Equipment Activities"
+msgstr "Actividades de equipo"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment__equipment_activity_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__equipment_activity_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__equipment_activity_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request__equipment_activity_id
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_form
+msgid "Equipment Activity"
+msgstr "Actividad de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__equipment_activity_uomctg_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__equipment_activity_uomctg_id
+msgid "Equipment Activity UoM Category"
+msgstr "UdM de la categoría de la actividad de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_type_view_form
+msgid "Equipment Guideline Type"
+msgstr "Tipo de pauta de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_type_view_tree
+msgid "Equipment Guideline Types"
+msgstr "Tipos de pautas de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.actions.act_window,name:l10n_cl_maintenance.maintenance_equipment_activity_tracking_action
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_tracking_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_tracking_view_tree
+msgid "Equipment Tracking Activities"
+msgstr "Seguimiento de actividades"
+
+#. module: l10n_cl_maintenance
+#: model:ir.actions.act_window,name:l10n_cl_maintenance.hr_equipment_action_from_activity_form
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__equipment_ids
+msgid "Equipments"
+msgstr "Equipos"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_form
+msgid "Equipo"
+msgstr "Equipo"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_form
+msgid "Files"
+msgstr "Archivos"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.actions.act_window,help:l10n_cl_maintenance.hr_equipment_request_action_link_from_activity_form
+msgid "Follow the process of the request and communicate with the collaborator."
+msgstr "Siga el proceso de la solicitud y comuníquese con el colaborador."
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_follower_ids
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_channel_ids
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_partner_ids
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__activity_type_icon
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__period
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_form
+msgid "Frequency between each preventive maintenance"
+msgstr "Frecuencia entre cada mantenimiento preventivo"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields.selection,name:l10n_cl_maintenance.selection__maintenance_guideline__measurement__frequently
+msgid "Frequently"
+msgstr "Frecuentemente"
+
+#. module: l10n_cl_maintenance
+#: model:ir.ui.menu,name:l10n_cl_maintenance.maintenance_guideline_menu
+msgid "General guidelines"
+msgstr "Pautas generales"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_search_view
+msgid "Group By"
+msgstr "Grupo por"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_tracking_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_search
+msgid "Group by..."
+msgstr "Agrupar por..."
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url__guideline_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__guideline_id
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+msgid "Guideline"
+msgstr "Pauta"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_guideline_activity
+msgid "Guideline Activity"
+msgstr "Actividad de la pauta"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request__maintenance_guideline_id
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_form
+msgid "Guideline Of Maintenance"
+msgstr "Pauta de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment__maintenance_guideline_ids
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+msgid "Guideline Of Maintenances"
+msgstr "Pautas de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__guideline_type_id
+msgid "Guideline Type"
+msgstr "Tipo de pauta de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_type_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_type_view_search
+msgid "Guideline Type Name"
+msgstr "Nombre de la pauta de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request__id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__id
+msgid "ID"
+msgstr "ID (identificación)"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activity_exception_icon
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__activity_exception_icon
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__message_needaction
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__message_unread
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__message_needaction
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__message_has_error
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_is_follower
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request____last_update
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url__write_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__write_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url__write_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__write_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__write_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__write_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__write_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__write_date
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_form_view
+msgid "Links"
+msgstr "Enlaces"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_main_attachment_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__maintenance_ids
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_form
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__maintenance_count
+msgid "Maintenance Count"
+msgstr "Cuenta de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__maintenance_duration
+msgid "Maintenance Duration"
+msgstr "Duración de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__maintenance_duration
+msgid "Maintenance Duration in hours."
+msgstr "Duración del mantenimiento en horas."
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_maintenance_equipment
+msgid "Maintenance Equipment"
+msgstr "Equipo de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.actions.act_window,name:l10n_cl_maintenance.maintenance_equipment_activity_action
+#: model:ir.ui.menu,name:l10n_cl_maintenance.maintenance_equipment_activity_menu_configuration
+msgid "Maintenance Equipment Activities"
+msgstr "Actividades de equipamiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_maintenance_equipment_activity
+msgid "Maintenance Equipment Activity"
+msgstr "Actividad de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_maintenance_equipment_activity_tracking
+msgid "Maintenance Equipment Activity Tracking"
+msgstr "Seguimiento de Actividad del equipo"
+
+#. module: l10n_cl_maintenance
+#: model:ir.ui.menu,name:l10n_cl_maintenance.maintenance_guideline_type_menu_configuration
+msgid "Maintenance Equipment Guideline Types"
+msgstr "Tipos de pautas de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.actions.act_window,name:l10n_cl_maintenance.maintenance_guideline_action
+msgid "Maintenance General Guidelines"
+msgstr "Pautas generales de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_maintenance_guideline_activity
+msgid "Maintenance Guideline Activity"
+msgstr "Actividad de la Pauta de Mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_maintenance_guideline
+msgid "Maintenance Guideline General"
+msgstr "Pauta de mantenimiento General"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_maintenance_guideline_type
+msgid "Maintenance Guideline Type"
+msgstr "Tipo de Pauta de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.actions.act_window,name:l10n_cl_maintenance.maintenance_guideline_type_action
+msgid "Maintenance Guideline Types"
+msgstr "Tipos de pautas de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_maintenance_request
+msgid "Maintenance Request"
+msgstr "Petición de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.actions.act_window,name:l10n_cl_maintenance.maintenance_request_task_action
+#: model:ir.model,name:l10n_cl_maintenance.model_maintenance_request_task
+msgid "Maintenance Request Task"
+msgstr "Tarea de solicitud de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.actions.act_window,name:l10n_cl_maintenance.hr_equipment_request_action_link_from_activity_form
+msgid "Maintenance Requests"
+msgstr "Peticiones de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__measurement
+msgid "Measurement"
+msgstr "Medición"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_has_error
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_ids
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_activity_url__name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_url__name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__name
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__name
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_search_view
+msgid "Name"
+msgstr "Nombre"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_form_view
+msgid "Name..."
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: code:addons/l10n_cl_maintenance/models/maintenance_request.py:0
+#, python-format
+msgid "New"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activity_date_deadline
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activity_summary
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activity_type_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_needaction_counter
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request__task_done_count
+msgid "Number of completed tasks"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_has_error_counter
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__message_needaction_counter
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__message_has_error_counter
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__message_unread_counter
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__parent_id
+msgid "Parent Activity"
+msgstr "Actividad padre"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__parent_path
+msgid "Parent Path"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request__task_done_percent
+msgid "Percentage of completed tasks"
+msgstr "Porcentaje de tareas completadas"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__prefix
+msgid "Prefix"
+msgstr "Prefijo"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline_type__prefix
+msgid "Prefix value of the record for Maintenance Guideline"
+msgstr "Valor del prefijo del registro para la Pauta de mantenimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields.selection,name:l10n_cl_maintenance.selection__maintenance_guideline__maintenance_type__preventive
+msgid "Preventive"
+msgstr "Preventivo"
+
+#. module: l10n_cl_maintenance
+#: code:addons/l10n_cl_maintenance/models/maintenance_equipment.py:0
+#, python-format
+msgid "Preventive Maintenance - %s"
+msgstr "Mantenimiento preventivo - %s"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__preview
+msgid "Preview"
+msgstr "Previsualización"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_type_view_form
+msgid "Preview (for prefix, suffix)"
+msgstr "Previsualización (para prefijo, sufijo)"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request__task_count
+msgid "Quantity activities"
+msgstr "Cantidad de actividades"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__request_id
+msgid "Request"
+msgstr "Solicitud"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__activity_user_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_search
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_type_view_search
+msgid "Search"
+msgstr "Búsqueda"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__sequence
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__sequence
+msgid "Sequence"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__state
+msgid "State"
+msgstr "Estado"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__activity_state
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_type__suffix
+msgid "Suffix"
+msgstr "Sufijo"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline_type__suffix
+msgid "Suffix value of the record for Maintenance Guideline"
+msgstr "Valor del sufijo del registro para la Pauta"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request__task_ids
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_request_form_inherit
+msgid "Tasks"
+msgstr "Tareas"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.constraint,message:l10n_cl_maintenance.constraint_guideline_activity_unique_code
+msgid "The activity code must be unique!"
+msgstr "El código de actividad debe ser único."
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.constraint,message:l10n_cl_maintenance.constraint_guideline_activity_unique_name
+msgid "The activity name must be unique!"
+msgstr "El nombre de la actividad debe ser único."
+
+#. module: l10n_cl_maintenance
+#: code:addons/l10n_cl_maintenance/models/maintenance_equipment.py:0
+#, python-format
+msgid "The following %s %s does not have the correct unit of measurement category"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: code:addons/l10n_cl_maintenance/models/maintenance_guideline.py:0
+#, python-format
+msgid "The following %s %s don't have the correct unit of measurement category"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: code:addons/l10n_cl_maintenance/models/maintenance_guideline.py:0
+#, python-format
+msgid "The following %s %s don't have value either for frequently or fixed measurement"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.actions.act_window,help:l10n_cl_maintenance.guideline_activity_act_window
+msgid "There is no activities click here to add new activity."
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields.selection,name:l10n_cl_maintenance.selection__maintenance_request_task__state__draft
+msgid "To do"
+msgstr "Para hacer"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.actions.act_window,help:l10n_cl_maintenance.hr_equipment_action_from_activity_form
+msgid ""
+"Track equipments and link it to an employee or department.\n"
+"                You will be able to manage allocations, issues and maintenance of your equipment."
+msgstr ""
+"Rastree equipos y vincúlelo a un empleado o departamento.\n"
+"Podrá administrar asignaciones, problemas y mantenimiento de su equipo."
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+msgid "Tracking"
+msgstr "Segumientos"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__tracking_date
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_tracking_view_search
+msgid "Tracking Date"
+msgstr "Fecha de seguimiento"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__tracking_value
+msgid "Tracking Value"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__tracking_eauom_value
+msgid "Tracking Value on Equipment Actv UoM"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_guideline__activity_exception_decoration
+#: model:ir.model.fields,help:l10n_cl_maintenance.field_maintenance_request_task__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity__uom_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_equipment_activity_tracking__uom_id
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__uom_id
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_equipment_activity_view_search
+msgid "Unit of Measure"
+msgstr "Unidad de medida"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_unread
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__message_unread_counter
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_request_task__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__url_video
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline_activity__activity_url_video
+msgid "Url video"
+msgstr "Url de vídeo"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_guideline_activity__url_ids
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__url_ids
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_form
+msgid "Urls"
+msgstr "Enlaces"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model.fields,field_description:l10n_cl_maintenance.field_maintenance_guideline__value
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_form
+msgid "Value for preventive maintenance"
+msgstr "Valor para el mantenimiento preventivo"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_tree_view
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.hr_equipment_view_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_form
+msgid "Ver vídeo"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: code:addons/l10n_cl_maintenance/models/guideline_activity.py:0
+#, python-format
+msgid "You cannot create recursive activities."
+msgstr "No se pueden crear actividades recursivas."
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_activity_url
+msgid "activity.url"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_form_view
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_search_view
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.guideline_activity_tree_view
+msgid "guideline activity"
+msgstr "Actividad de la pauta"
+
+#. module: l10n_cl_maintenance
+#: model:ir.model,name:l10n_cl_maintenance.model_guideline_url
+msgid "guideline.url"
+msgstr "Enlace de la pauta"
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_guideline_view_tree
+msgid "maintenance_guideline_tree"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_request_task_view_form
+msgid "maintenance_request_task_form"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: model_terms:ir.ui.view,arch_db:l10n_cl_maintenance.maintenance_request_task_view_tree
+msgid "maintenance_request_task_tree"
+msgstr ""
+
+#. module: l10n_cl_maintenance
+#: code:addons/l10n_cl_maintenance/models/guideline_activity.py:0
+#: code:addons/l10n_cl_maintenance/models/maintenance_guideline.py:0
+#, python-format
+msgid "the activity does not have an assigned video"
+msgstr "la actividad no tiene un enlace de vídeo asignado"

@@ -8,11 +8,12 @@ class MaintenanceGuidelineActivity(models.Model):
     _parent_name = "parent_id"
     _parent_store = True
     _rec_name = 'complete_name'
-    _order = 'complete_name'
+    _order = 'code'
     _check_company_auto = True
 
     sequence = fields.Integer(required=True, default=10)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
+    active = fields.Boolean('Active', default=True)
 
     code = fields.Char(string='Code', required=True, copy=False)
     name = fields.Char(string='Name', required=True, copy=False)
@@ -23,18 +24,29 @@ class MaintenanceGuidelineActivity(models.Model):
     parent_id = fields.Many2one('guideline.activity', 'Parent Activity',
                                 index=True, ondelete='cascade', check_company=True)
     parent_path = fields.Char(index=True)
+    parent_path_ids = fields.Char(compute='_compute_parent_path')
     child_ids = fields.One2many('guideline.activity', 'parent_id', 'Child Actities')
 
     @api.depends('name', 'parent_id.complete_name')
     def _compute_complete_name(self):
-        for category in self:
-            if category.parent_id:
-                category.complete_name = '%s / %s' % (category.parent_id.complete_name, category.name)
+        for guideline in self:
+            if guideline.parent_id:
+                guideline.complete_name = '%s / %s' % (guideline.parent_id.complete_name, guideline.name)
             else:
-                category.complete_name = category.name
+                guideline.complete_name = guideline.name
+
+    # @api.depends('parent_id')
+    def _compute_parent_path(self):
+        for guideline in self:
+            if guideline.parent_id:
+                x = '/%s/%s/' % (guideline.parent_id.parent_path_ids, guideline.id)
+                x = x.replace('//', '/')
+                guideline.parent_path_ids = x
+            else:
+                guideline.parent_path_ids = f'/{guideline.id}/'
 
     @api.constrains('parent_id')
-    def _check_category_recursion(self):
+    def _check_guideline_recursion(self):
         if not self._check_recursion():
             raise ValidationError(_('You cannot create recursive activities.'))
         return True
@@ -66,7 +78,7 @@ class MaintenanceGuidelineActivity(models.Model):
                 'target': 'new',
             }
         else:
-            raise Warning(_(f'the activity does not have an assigned video'))
+            raise Warning(_(f'the activity does not have an link assigned video'))
 
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):

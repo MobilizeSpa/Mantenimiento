@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, _
-from odoo.exceptions import ValidationError, Warning
+from odoo.exceptions import ValidationError, Warning, UserError
 
 
 class MaintenanceGuidelineType(models.Model):
@@ -68,6 +68,8 @@ class MaintenanceGuideline(models.Model):
     activities_ids = fields.One2many('maintenance.guideline.activity', 'guideline_id', 'Activities', copy=True,
                                      auto_join=True)
 
+    bool_in_request = fields.Boolean(string='Bool in request', required=False)
+
     @api.depends('guideline_type_id', 'uom_id', 'measurement', 'period', 'value')
     def _compute_name(self):
         for record in self:
@@ -116,6 +118,49 @@ class MaintenanceGuideline(models.Model):
                                       _(self._description),
                                   ))
 
+    @api.model
+    def create(self, values):
+        # Add code here
+        res = super(MaintenanceGuideline, self).create(values)
+        bool_logic = self._context.get('bool_logic', False)
+        if res.activities_ids and not bool_logic:
+            set_activity = set()
+            data_activities = []
+            for line in res.activities_ids:
+                names = line.activity_id.complete_name.split('/')
+                for name in names:
+                    act_name = self.env['guideline.activity'].sudo().search([('name', '=ilike', name.strip())], limit=1)
+                    if act_name not in set_activity:
+                        data_activities.append((0, 0, dict(activity_id=act_name.id,
+                                                           guideline_id=res.id)))
+                        set_activity.add(act_name)
+            res.write(dict(activities_ids=[(6, 0, [])]))
+            res.write(dict(activities_ids=data_activities))
+        return res
+
+    def write(self, values):
+        # Add code here
+        res = super(MaintenanceGuideline, self).write(values)
+        bool_update_activities = self._context.get('bool_update_activities', False)
+        if 'activities_ids' in values and not bool_update_activities:
+            set_activity = set()
+            data_activities = []
+            for line in self.activities_ids:
+                names = line.activity_id.complete_name.split('/')
+                for name in names:
+                    act_name = self.env['guideline.activity'].sudo().search([('name', '=ilike', name.strip())], limit=1)
+                    if act_name not in set_activity:
+                        new_line = self.env['maintenance.guideline.activity'].sudo().create(
+                            dict(activity_id=act_name.id, guideline_id=self.id))
+                        data_activities.append(new_line.id)
+                        set_activity.add(act_name)
+            self.env.context = dict(self.env.context)
+            self.env.context.update({'bool_update_activities': True})
+            self.write(dict(activities_ids=[(6, 0, data_activities)]))
+            return res
+        else:
+            return res
+
 
 class ActivityUrl(models.Model):
     _name = 'guideline.url'
@@ -158,3 +203,47 @@ class MaintenanceGuidelineActivity(models.Model):
             }
         else:
             raise Warning(_(f'the activity does not have an assigned video'))
+
+    def action_delete_custom(self):
+        view = self.env.ref('l10n_cl_maintenance.guideline_line_confirm_form_view')
+        view_id = view and view.id or False
+        context = dict(self._context or {})
+        context['default_line_guideline'] = self.id
+        context[
+            'default_text_message'] = 'You are sure to delete the activity since these dependencies will be eliminated.'
+
+        return {
+            'name': _('Confirm'),
+            'type': 'ir.actions.act_window',
+            'res_model': 'guideline.line.confirm',
+            'view_mode': 'form',
+            'views': [(view_id, 'form')],
+            'view_id': view_id,
+            'target': 'new',
+            'context': context,
+        }
+
+
+"""
+    def unlink(self):
+        bool_unlink_line = self._context.get('bool_unlink_line', False)
+        ids = []
+        if not bool_unlink_line:
+            for rec in self:
+                my_id = f'/{self.activity_id.id}/'
+                more_guidelines = rec.guideline_id.activities_ids
+                to_delete = more_guidelines.filtered(
+                    lambda i: my_id in i.activity_id.parent_path_ids and i.id != rec.id)
+                self.env.context = dict(self.env.context)
+                self.env.context.update({'bool_unlink_line': True})
+                ids += to_delete.ids
+
+        if len(ids) > 0:
+            self = self.with_context({
+                'bool_unlink_line': True,
+            })
+            self.search([('id', 'in', ids)]).unlink()
+        res = super(MaintenanceGuidelineActivity, self).unlink()
+        return res
+
+"""

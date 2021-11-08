@@ -10,7 +10,7 @@
                 <form string="maintenance_request_task_form">
                     <header>
                         <button name="action_draft" type="object" string="Draft" icon="fa-times"
-                                states="done"/>
+                                states="done" confirm="Are you sure to draft all dependent activities?"/>
                         <button name="action_confirm" type="object" string="Confirm" icon="fa-check-square-o"
                                 states="draft"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
@@ -45,7 +45,7 @@
                 <tree string="maintenance_request_task_tree">
                     <field name="name"/>
                     <field name="employee_id" widget="many2one_avatar_employee"/>
-                    <field name="request_id"/>
+                    <field name="activity_id"/>
                     <field name="state" widget="badge" decoration-success="state == 'done'"
                            decoration-info="state == 'draft'"/>
                     <field name="company_id" groups="base.group_multi_company"/>
