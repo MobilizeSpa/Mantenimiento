@@ -9,7 +9,7 @@
                 <sheet>
                     <group name="info_group">
                         <field name="name"/>
-                        <field name="color"/>
+                        <field name="color" widget="int_color"/>
                     </group>
                 </sheet>
             </form>

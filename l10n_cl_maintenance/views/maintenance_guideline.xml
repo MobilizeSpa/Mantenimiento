@@ -143,7 +143,7 @@
                                         <field name="activity_id"/>
                                         <button name="action_open_url_video"
                                                 icon="fa-youtube-play"
-                                                type="object" string="Ver vídeo"/>
+                                                type="object"/>
                                         <field name="activity_code"/>
 
                                         <field
@@ -170,7 +170,7 @@
                                 </field>
 
                             </page>
-                            <page name="urls" string="Urls">
+                            <page name="urls" string="Links">
                                 <field
                                         name="url_ids"
                                         widget="section_and_note_one2many"

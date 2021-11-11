@@ -37,7 +37,7 @@ class MaintenanceGuidelineActivity(models.Model):
 
     parent_path = fields.Char(index=True)
     parent_path_ids = fields.Char(compute='_compute_parent_path')
-    child_ids = fields.One2many('guideline.activity', 'parent_id', 'Child Actities')
+    child_ids = fields.One2many('guideline.activity', 'parent_id', 'Child activities')
 
     @api.depends("child_ids")
     def _compute_child_count(self):
@@ -133,9 +133,7 @@ class MaintenanceGuidelineActivity(models.Model):
         "guideline_activity_tag_rel",
         "activity_id",
         "specialty_tag_id",
-        string="Specialties",
-        requerid=True
-    )
+        string="Specialities")
 
     _sql_constraints = [
         ('unique_name', 'unique (name)', 'The activity name must be unique!'),

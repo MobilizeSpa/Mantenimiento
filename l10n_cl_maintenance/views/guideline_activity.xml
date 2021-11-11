@@ -30,6 +30,7 @@
                             <label for="specialty_tag_ids" string="Specialities"/>
                             <field
                                     name="specialty_tag_ids"
+                                    required="1"
                                     widget="many2many_tags"
                                     options="{'color_field': 'color'}"
                                     placeholder="e.g. Mechanic"
@@ -114,7 +115,7 @@
                     <field name="complete_name"/>
                     <button name="action_open_url_video"
                             icon="fa-youtube-play"
-                            type="object" string="Ver vídeo"/>
+                            type="object"/>
                     <!--                    <field name="complete_name"/>-->
                     <field
                             name="specialty_tag_ids"

@@ -17,8 +17,10 @@
         'security/ir.model.access.csv',
 
         'data/sequences.xml',
+
         # 'data/maintenance_data.xml',
         # 'data/mail_data.xml',
+        'views/templates.xml',
         'views/hr_speciality_tag.xml',
         'views/guideline_activity.xml',
         'views/hr_employee.xml',

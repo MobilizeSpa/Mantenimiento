@@ -263,6 +263,7 @@
                                         <field name="equipment_id" string="Equipo"/>
                                         <field name="maintenance_type" widget="radio" options="{'horizontal': true}"/>
                                         <field name="guideline_type_id"/>
+                                        <field name="bool_in_request" invisible="1"/>
                                     </group>
                                     <group>
                                         <field name="equipment_activity_id"/>
@@ -292,6 +293,7 @@
                                 <notebook>
                                     <page name="activities" string="Activities">
                                         <field
+                                                attrs="{'readonly': [('bool_in_request', '=', True)]}"
                                                 name="activities_ids"
                                                 widget="section_and_note_one2many"
                                                 context="{'default_guideline_id' : id}"
@@ -306,7 +308,19 @@
                                                 <field name="activity_code"/>
                                                 <button name="action_open_url_video"
                                                         icon="fa-youtube-play"
-                                                        type="object" string="Ver vídeo"/>
+                                                        type="object"/>
+                                                <field
+                                                        name="activity_speciality_ids"
+                                                        widget="many2many_tags"
+                                                        options="{'color_field': 'color'}"
+                                                />
+
+                                                <button name="action_delete_custom"
+                                                        attrs="{'column_invisible': [('parent.bool_in_request', '=', True)]}"
+                                                        icon="fa-close"
+                                                        class="text-danger"
+                                                        type="object"/>
+
 
                                             </tree>
                                             <form>

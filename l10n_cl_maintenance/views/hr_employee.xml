@@ -17,5 +17,24 @@
             </field>
         </record>
 
+        <!-- Inherit Form View to Modify it -->
+        <record id="mblz_hr_kanban_view_employees" model="ir.ui.view">
+            <field name="name">hr.employee.kanban (mblz)</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <div class="text-primary" style="font-size: 11px;">
+                        <field name="speciality_id"/>
+                    </div>
+
+                </xpath>
+
+            </field>
+        </record>
+
+
     </data>
 </odoo>
