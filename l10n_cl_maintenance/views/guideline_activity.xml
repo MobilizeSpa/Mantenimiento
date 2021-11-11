@@ -10,14 +10,39 @@
                     <sheet>
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
                                 attrs="{'invisible': [('active', '=', True)]}"/>
+
+                        <div class="oe_button_box" name="button_box">
+                            <button
+                                    name="preview_child_list"
+                                    type="object"
+                                    class="oe_stat_button"
+                                    icon="fa-sitemap"
+                            >
+                                <field string="Children" name="child_count" widget="statinfo"/>
+                            </button>
+                        </div>
                         <div class="oe_title">
                             <h1>
                                 <field name="name" placeholder="Name..."/>
                             </h1>
                         </div>
+                        <div>
+                            <label for="specialty_tag_ids" string="Specialities"/>
+                            <field
+                                    name="specialty_tag_ids"
+                                    widget="many2many_tags"
+                                    options="{'color_field': 'color'}"
+                                    placeholder="e.g. Mechanic"
+                            />
+
+                        </div>
+
                         <group name="first" col="2">
                             <field name="active" invisible="1"/>
-                            <field name="parent_id" class="oe_inline"/>
+                            <field
+                                    name="parent_id"
+                                    readonly="not context.get('parent_id_editable', True)"
+                            />
                         </group>
                         <group>
                             <group>
@@ -25,7 +50,7 @@
                             </group>
                             <group>
                                 <field name="complete_name"/>
-                                <field name="parent_path_ids" invisible="0"/>
+                                <field name="parent_path_ids" invisible="1"/>
                                 <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                         </group>
@@ -86,11 +111,16 @@
                 <tree string="guideline activity">
                     <field name="sequence" widget="handle"/>
                     <field name="code"/>
-                    <field name="name"/>
+                    <field name="complete_name"/>
                     <button name="action_open_url_video"
                             icon="fa-youtube-play"
                             type="object" string="Ver vídeo"/>
-                    <field name="complete_name"/>
+                    <!--                    <field name="complete_name"/>-->
+                    <field
+                            name="specialty_tag_ids"
+                            widget="many2many_tags"
+                            options="{'color_field': 'color'}"
+                    />
                     <field name="company_id" groups="base.group_multi_company"/>
                 </tree>
             </field>
@@ -105,6 +135,7 @@
                     <field name="code"/>
                     <field name="name"/>
                     <field name="active"/>
+                    <field name="specialty_tag_ids"/>
                     <group expand="1" string="Group By">
                         <filter string="Code" name="code" domain="[]"/>
                         <filter string="Name" name="name"/>
@@ -127,9 +158,15 @@
                             <div class="oe_kanban_global_click">
                                 <div class="oe_kanban_details">
                                     <div class="o_kanban_record_top">
+
                                         <div class="o_kanban_record_headings">
                                             <strong class="o_kanban_record_title"><field name="name"/></strong>
                                             (<field name="code"/>)
+                                            <field
+                                                    name="specialty_tag_ids"
+                                                    widget="many2many_tags"
+                                                    options="{'color_field': 'color'}"
+                                            />
                                         </div>
                                         <div class="oe_kanban_bottom_right">
 

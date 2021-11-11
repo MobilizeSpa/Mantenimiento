@@ -24,10 +24,24 @@
                                 <field name="name"/>
                             </h1>
                         </div>
+                        <div attrs="{'invisible': [('activity_speciality_ids', '=', [])]}">
+                            <label for="activity_speciality_ids" string="Specialities"/>
+                            <field
+                                    name="activity_speciality_ids"
+                                    widget="many2many_tags"
+                                    options="{'color_field': 'color'}"
+                                    placeholder="e.g. Mechanic"
+                            />
+
+                        </div>
                         <group>
                             <group>
-                                <field name="employee_id" widget="many2one_avatar_employee"/>
-                                <field name="activity_id"/>
+                                <field name="employee_id"
+                                       domain="[('speciality_id', 'in', activity_speciality_ids)]"
+                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"
+                                       widget="many2one_avatar_employee"/>
+                                <field name="activity_id"
+                                />
                             </group>
                             <group>
                                 <field name="company_id" groups="base.group_multi_company"/>
@@ -66,6 +80,20 @@
             <field name="model">maintenance.request</field>
             <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
             <field name="arch" type="xml">
+
+                <xpath expr="//div[@class='oe_title']" position="after">
+                    <div attrs="{'invisible': [('guideline_speciality_ids', '=', [])]}">
+                        <label for="guideline_speciality_ids" string="Specialities"/>
+                        <field
+                                name="guideline_speciality_ids"
+                                widget="many2many_tags"
+                                options="{'color_field': 'color'}"
+                                placeholder="e.g. Mechanic"
+                        />
+                    </div>
+                </xpath>
+
+
                 <xpath expr="//form/sheet/div[1]" position="replace"/>
 
                 <field name="category_id" position="after">

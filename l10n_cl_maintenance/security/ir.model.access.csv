@@ -25,3 +25,7 @@ access_maintenance_request_task_admin_user,maintenance_request_task.admin.user,m
 
 access_guideline_line_confirm_user,guideline_line_confirm.user,model_guideline_line_confirm,base.group_user,1,0,0,0
 access_guideline_line_confirm_admin_user,guideline_line_confirm.admin.user,model_guideline_line_confirm,maintenance.group_equipment_manager,1,1,1,1
+
+
+access_hr_specialty_tag,access_hr_specialty_tag,model_hr_specialty_tag,base.group_user,1,0,0,0
+access_hr_specialty_tag_man,access_hr_specialty_tag_man,model_hr_specialty_tag,maintenance.group_equipment_manager,1,1,1,1

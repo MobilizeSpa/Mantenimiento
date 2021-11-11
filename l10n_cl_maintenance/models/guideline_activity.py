@@ -8,7 +8,7 @@ class MaintenanceGuidelineActivity(models.Model):
     _parent_name = "parent_id"
     _parent_store = True
     _rec_name = 'complete_name'
-    _order = 'code'
+    _parent_order = "name"
     _check_company_auto = True
 
     sequence = fields.Integer(required=True, default=10)
@@ -18,14 +18,35 @@ class MaintenanceGuidelineActivity(models.Model):
     code = fields.Char(string='Code', required=True, copy=False)
     name = fields.Char(string='Name', required=True, copy=False)
 
+    display_name = fields.Char(compute="_compute_display_name")
+
     complete_name = fields.Char(
         'Complete Name', compute='_compute_complete_name',
         store=True)
-    parent_id = fields.Many2one('guideline.activity', 'Parent Activity',
-                                index=True, ondelete='cascade', check_company=True)
+    parent_id = fields.Many2one('guideline.activity',
+                                'Parent Activity',
+                                index=True,
+                                ondelete='cascade',
+                                check_company=True)
+
+    parent_left = fields.Integer("Left Parent", index=1)
+    parent_right = fields.Integer("Right Parent", index=1)
+    child_count = fields.Integer(
+        compute="_compute_child_count", string="Number of child equipments"
+    )
+
     parent_path = fields.Char(index=True)
     parent_path_ids = fields.Char(compute='_compute_parent_path')
     child_ids = fields.One2many('guideline.activity', 'parent_id', 'Child Actities')
+
+    @api.depends("child_ids")
+    def _compute_child_count(self):
+        for equipment in self:
+            equipment.child_count = len(equipment.child_ids)
+
+    def _compute_display_name(self):
+        for equipment in self:
+            equipment.display_name = equipment.complete_name
 
     @api.depends('name', 'parent_id.complete_name')
     def _compute_complete_name(self):
@@ -34,6 +55,21 @@ class MaintenanceGuidelineActivity(models.Model):
                 guideline.complete_name = '%s / %s' % (guideline.parent_id.complete_name, guideline.name)
             else:
                 guideline.complete_name = guideline.name
+
+    def preview_child_list(self):
+        return {
+            "name": "Child activity of %s" % self.name,
+            "type": "ir.actions.act_window",
+            "res_model": "guideline.activity",
+            "res_id": self.id,
+            "view_mode": "list,form",
+            "context": {
+                **self.env.context,
+                "default_parent_id": self.id,
+                "parent_id_editable": False,
+            },
+            "domain": [("id", "in", self.child_ids.ids)],
+        }
 
     # @api.depends('parent_id')
     def _compute_parent_path(self):
@@ -91,6 +127,15 @@ class MaintenanceGuidelineActivity(models.Model):
             default['code'] = _("%s (copy)") % (self.code or '')
             default['name'] = self.name
         return super(MaintenanceGuidelineActivity, self).copy(default)
+
+    specialty_tag_ids = fields.Many2many(
+        "hr.specialty.tag",
+        "guideline_activity_tag_rel",
+        "activity_id",
+        "specialty_tag_id",
+        string="Specialties",
+        requerid=True
+    )
 
     _sql_constraints = [
         ('unique_name', 'unique (name)', 'The activity name must be unique!'),

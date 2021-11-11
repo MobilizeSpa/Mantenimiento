@@ -13,8 +13,14 @@ class MaintenanceRequestTask(models.Model):
                        default=lambda self: _('New'))
 
     activity_id = fields.Many2one('guideline.activity', 'Activity')
+    activity_speciality_ids = fields.Many2many(related='activity_id.specialty_tag_ids')
 
     employee_id = fields.Many2one('hr.employee', 'Employee', required=False, check_company=True)
+
+    @api.onchange('activity_speciality_ids', 'employee_id')
+    def onchange_employee_id(self):
+        for rec in self:
+            return {'domain': {'employee_id': [('speciality_id', 'in', rec.activity_speciality_ids.ids)]}}
 
     request_id = fields.Many2one(
         comodel_name='maintenance.request',
@@ -125,6 +131,20 @@ class MaintenanceRequest(models.Model):
             action['views'] = action['views'][1:]
         return action
 
+    guideline_speciality_ids = fields.Many2many(
+        comodel_name='hr.specialty.tag',
+        compute='_compute_guideline_speciality_ids',
+        string='Specialities')
+
+    @api.depends('maintenance_guideline_id')
+    def _compute_guideline_speciality_ids(self):
+        for rec in self:
+            set_speciality = set()
+            for line in rec.maintenance_guideline_id.activities_ids:
+                for speciality in line.activity_speciality_ids:
+                    set_speciality.add(speciality.id)
+            rec.guideline_speciality_ids = [(6, 0, list(set_speciality))]
+
     def write(self, values):
         # Add code here
         if 'maintenance_guideline_id' in values:
@@ -155,20 +175,3 @@ class MaintenanceRequest(models.Model):
                                              request_id=res.id)))
             res.write(dict(task_ids=data_task))
         return res
-
-        # res = super(MaintenanceRequest, self).create(values)
-        # if 'maintenance_guideline_id' in values:
-        #     maintenance_guideline_id = self.maintenance_guideline_id.browse(int(values.get('maintenance_guideline_id')))
-        #     common_activities = maintenance_guideline_id.activities_ids.mapped('activity_id')
-        #     set_activity = set()
-        #     data_task = []
-        #     for activity in common_activities:
-        #         names = activity.complete_name.split('/')
-        #         for name in names:
-        #             act_name = self.env['guideline.activity'].sudo().search([('name', '=ilike', name.strip())], limit=1)
-        #             if act_name not in set_activity:
-        #                 data_task.append((0, 0, dict(activity_id=act_name.id,
-        #                                              request_id=res.id)))
-        #                 set_activity.add(act_name)
-        #     res.write(dict(task_ids=data_task))
-        # return res

@@ -19,8 +19,9 @@
         'data/sequences.xml',
         # 'data/maintenance_data.xml',
         # 'data/mail_data.xml',
-
+        'views/hr_speciality_tag.xml',
         'views/guideline_activity.xml',
+        'views/hr_employee.xml',
 
         'views/maintenance_guideline.xml',
         'views/maintenance_equipment.xml',

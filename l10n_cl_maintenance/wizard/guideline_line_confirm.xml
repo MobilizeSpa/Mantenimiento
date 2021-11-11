@@ -18,6 +18,7 @@
                         <field name="lines_dependent" widget="one2many" readonly="1">
                              <tree edit="0" delete="0">
                                  <field name="activity_id" string="Activity dependents"/>
+<!--                                 <field name="activity_code"/>-->
                              </tree>
                         </field>
                         <newline/>

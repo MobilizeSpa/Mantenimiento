@@ -30,7 +30,7 @@ class MaintenanceGuideline(models.Model):
     _description = 'Maintenance Guideline General'
     _check_company_auto = True
 
-    name = fields.Char('Name', compute='_compute_name', readonly=True, store=True)
+    name = fields.Char('Name', required=True)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
     description = fields.Text('Description')
     guideline_type_id = fields.Many2one('maintenance.guideline.type',
@@ -192,6 +192,7 @@ class MaintenanceGuidelineActivity(models.Model):
 
     activity_code = fields.Char(related='activity_id.code', string='Code')
     activity_url_video = fields.Char(related='activity_id.url_video')
+    activity_speciality_ids = fields.Many2many(related='activity_id.specialty_tag_ids')
 
     def action_open_url_video(self):
         self.ensure_one()
