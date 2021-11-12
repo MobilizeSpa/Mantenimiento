@@ -11,7 +11,11 @@
 
                 <xpath expr="//field[@name='coach_id']" position="after">
                     <!-- Add your fields or attributes here -->
-                    <field name="speciality_id"/>
+                    <field
+                            name="speciality_ids"
+                            widget="many2many_tags"
+                            options="{'color_field': 'color'}"
+                    />
                 </xpath>
 
             </field>
@@ -27,7 +31,11 @@
                 <xpath expr="//field[@name='name']" position="after">
                     <!-- Add your fields or attributes here -->
                     <div class="text-primary" style="font-size: 11px;">
-                        <field name="speciality_id"/>
+                        <field
+                                name="speciality_ids"
+                                widget="many2many_tags"
+                                options="{'color_field': 'color'}"
+                        />
                     </div>
 
                 </xpath>
