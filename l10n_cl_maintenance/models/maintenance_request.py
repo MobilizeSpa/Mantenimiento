@@ -16,6 +16,13 @@ class MaintenanceRequestTask(models.Model):
     activity_speciality_ids = fields.Many2many(related='activity_id.specialty_tag_ids')
 
     employee_id = fields.Many2one('hr.employee', 'Employee', required=False, check_company=True)
+    #
+    # flag_domain_employee = fields.Boolean(compute='_compute_flag_domain_employee')
+    #
+    # @api.depends('activity_speciality_ids')
+    # def _compute_flag_domain_employee(self):
+    #     for rec in self:
+    #         pass
 
     request_id = fields.Many2one(
         comodel_name='maintenance.request',
