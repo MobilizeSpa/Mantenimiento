@@ -106,116 +106,116 @@ class MaintenanceEquipment(models.Model):
 
         return values
 
-    def _register_hook(self):
-        """ Patch models to correct the that should trigger action rules based on creation,
-            modification, deletion of records and form onchanges.
-        """
-
-        def make__compute_next_maintenance():
-            """ Instanciate the _compute_next_maintenance. """
-
-            @api.depends('effective_date', 'period', 'maintenance_ids.request_date', 'maintenance_ids.close_date')
-            def _compute_next_maintenance(self):
-                date_now = fields.Date.context_today(self)
-                equipments = self.filtered(lambda x: any(mg.period > 0 or mg.value > 0
-                                                         for mg in x.maintenance_guideline_ids))
-
-                for equipment in equipments:
-                    next_maintenance_todo = self.env['maintenance.request'].search([
-                        ('equipment_id', '=', equipment.id),
-                        ('maintenance_type', '=', 'preventive'),
-                        ('stage_id.done', '!=', True),
-                        ('close_date', '=', False),
-                    ], order="request_date asc", limit=1)
-                    if next_maintenance_todo:
-                        next_date = next_maintenance_todo.request_date
-                        # If the new date still in the past, we set it for today
-                        if next_date < date_now:
-                            next_date = date_now
-                    else:
-                        next_date = False
-                    equipment.next_action_date = next_date
-
-                (self - equipments).next_action_date = False
-
-            return _compute_next_maintenance
-
-        def make__create_new_request():
-            def _create_new_request(self, date):
-                self.ensure_one()
-                self.env['maintenance.request'].create(self._prepare_request_values(date))
-
-            return _create_new_request
-
-        def make__cron_generate_requests():
-            """ Instanciate the _compute_next_maintenance. """
-
-            @api.model
-            def _cron_generate_requests(self):
-                """
-                    Generates maintenance request on the next_action_date or today if none exists
-                """
-                TrackingSudo = self.env['maintenance.equipment.activity.tracking'].sudo()
-                today = fields.Date.context_today(self)
-                tracking_value_delta = 3
-
-                for guideline in self.env['maintenance.guideline'].search(['|', ('period', '>', 0), ('value', '>', 0)]):
-                    equipment = guideline.equipment_id
-
-                    next_requests = self.env['maintenance.request'].search([
-                        ('request_date', '=', equipment.next_action_date),
-                        ('maintenance_guideline_id', '=', guideline.id),
-                        ('equipment_id', '=', equipment.id),
-                        ('maintenance_type', '=', 'preventive'),
-                        ('stage_id.done', '=', False),
-                    ])
-
-                    if not next_requests:
-                        tracking_data = TrackingSudo.read_group([
-                            ('equipment_activity_id', '=', guideline.equipment_activity_id.id),
-                            ('equipment_id', '=', equipment.id),
-                        ], ['equipment_activity_id', 'tracking_eauom_value'], 'tracking_eauom_value')
-                        if not tracking_data:
-                            continue
-
-                        tracking_value = tracking_data[0]['tracking_eauom_value']
-
-                        if guideline.measurement == 'frequently':
-                            tracking_limit_low = guideline.value - tracking_value_delta
-                            tracking_limit_hight = tracking_value_delta
-                            tracking_value %= guideline.period
-                            if tracking_limit_hight < tracking_value < tracking_limit_low:
-                                continue
-                        else:
-                            tracking_limit_hight = guideline.value + tracking_value_delta
-                            tracking_limit_low = guideline.value - tracking_value_delta
-                            if not tracking_limit_low <= tracking_value <= tracking_limit_hight:
-                                continue
-
-                        equipment.with_context(default_maintenance_guideline_id=guideline.id)._create_new_request(today)
-
-            return _cron_generate_requests
-
-        bases = type(self).mro()
-        bases.reverse()
-        make_patched_methods = [(method_name[5:], method_patch)
-                                for method_name, method_patch in locals().items()
-                                if 'make_' in method_name]
-
-        for base in bases:
-            if hasattr(base, '_name') and base._name == self._name:
-                methods_2patch = [(method_name, method_patch)
-                                  for method_name, method_patch in make_patched_methods
-                                  if hasattr(base, method_name)]
-
-                for method_name, method_patch in methods_2patch:
-                    base._patch_method(method_name, method_patch())
-                    patched_method = getattr(base, method_name)
-                    patched_method.origin_base = base
-                    # mark the method as patched
-                    make_patched_methods.remove((method_name, method_patch))
-
-            if not make_patched_methods:
-                break
-
-        super(MaintenanceEquipment, self)._register_hook()
+    # def _register_hook(self):
+    #     """ Patch models to correct the that should trigger action rules based on creation,
+    #         modification, deletion of records and form onchanges.
+    #     """
+    #
+    #     def make__compute_next_maintenance():
+    #         """ Instanciate the _compute_next_maintenance. """
+    #
+    #         @api.depends('effective_date', 'period', 'maintenance_ids.request_date', 'maintenance_ids.close_date')
+    #         def _compute_next_maintenance(self):
+    #             date_now = fields.Date.context_today(self)
+    #             equipments = self.filtered(lambda x: any(mg.period > 0 or mg.value > 0
+    #                                                      for mg in x.maintenance_guideline_ids))
+    #
+    #             for equipment in equipments:
+    #                 next_maintenance_todo = self.env['maintenance.request'].search([
+    #                     ('equipment_id', '=', equipment.id),
+    #                     ('maintenance_type', '=', 'preventive'),
+    #                     ('stage_id.done', '!=', True),
+    #                     ('close_date', '=', False),
+    #                 ], order="request_date asc", limit=1)
+    #                 if next_maintenance_todo:
+    #                     next_date = next_maintenance_todo.request_date
+    #                     # If the new date still in the past, we set it for today
+    #                     if next_date < date_now:
+    #                         next_date = date_now
+    #                 else:
+    #                     next_date = False
+    #                 equipment.next_action_date = next_date
+    #
+    #             (self - equipments).next_action_date = False
+    #
+    #         return _compute_next_maintenance
+    #
+    #     def make__create_new_request():
+    #         def _create_new_request(self, date):
+    #             self.ensure_one()
+    #             self.env['maintenance.request'].create(self._prepare_request_values(date))
+    #
+    #         return _create_new_request
+    #
+    #     def make__cron_generate_requests():
+    #         """ Instanciate the _compute_next_maintenance. """
+    #
+    #         @api.model
+    #         def _cron_generate_requests(self):
+    #             """
+    #                 Generates maintenance request on the next_action_date or today if none exists
+    #             """
+    #             TrackingSudo = self.env['maintenance.equipment.activity.tracking'].sudo()
+    #             today = fields.Date.context_today(self)
+    #             tracking_value_delta = 3
+    #
+    #             for guideline in self.env['maintenance.guideline'].search(['|', ('period', '>', 0), ('value', '>', 0)]):
+    #                 equipment = guideline.equipment_id
+    #
+    #                 next_requests = self.env['maintenance.request'].search([
+    #                     ('request_date', '=', equipment.next_action_date),
+    #                     ('maintenance_guideline_id', '=', guideline.id),
+    #                     ('equipment_id', '=', equipment.id),
+    #                     ('maintenance_type', '=', 'preventive'),
+    #                     ('stage_id.done', '=', False),
+    #                 ])
+    #
+    #                 if not next_requests:
+    #                     tracking_data = TrackingSudo.read_group([
+    #                         ('equipment_activity_id', '=', guideline.equipment_activity_id.id),
+    #                         ('equipment_id', '=', equipment.id),
+    #                     ], ['equipment_activity_id', 'tracking_eauom_value'], 'tracking_eauom_value')
+    #                     if not tracking_data:
+    #                         continue
+    #
+    #                     tracking_value = tracking_data[0]['tracking_eauom_value']
+    #
+    #                     if guideline.measurement == 'frequently':
+    #                         tracking_limit_low = guideline.value - tracking_value_delta
+    #                         tracking_limit_hight = tracking_value_delta
+    #                         tracking_value %= guideline.period
+    #                         if tracking_limit_hight < tracking_value < tracking_limit_low:
+    #                             continue
+    #                     else:
+    #                         tracking_limit_hight = guideline.value + tracking_value_delta
+    #                         tracking_limit_low = guideline.value - tracking_value_delta
+    #                         if not tracking_limit_low <= tracking_value <= tracking_limit_hight:
+    #                             continue
+    #
+    #                     equipment.with_context(default_maintenance_guideline_id=guideline.id)._create_new_request(today)
+    #
+    #         return _cron_generate_requests
+    #
+    #     bases = type(self).mro()
+    #     bases.reverse()
+    #     make_patched_methods = [(method_name[5:], method_patch)
+    #                             for method_name, method_patch in locals().items()
+    #                             if 'make_' in method_name]
+    #
+    #     for base in bases:
+    #         if hasattr(base, '_name') and base._name == self._name:
+    #             methods_2patch = [(method_name, method_patch)
+    #                               for method_name, method_patch in make_patched_methods
+    #                               if hasattr(base, method_name)]
+    #
+    #             for method_name, method_patch in methods_2patch:
+    #                 base._patch_method(method_name, method_patch())
+    #                 patched_method = getattr(base, method_name)
+    #                 patched_method.origin_base = base
+    #                 # mark the method as patched
+    #                 make_patched_methods.remove((method_name, method_patch))
+    #
+    #         if not make_patched_methods:
+    #             break
+    #
+    #     super(MaintenanceEquipment, self)._register_hook()

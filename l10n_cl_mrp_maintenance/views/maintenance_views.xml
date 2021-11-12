@@ -81,8 +81,8 @@
                 </button>
             </xpath>
 
-            <field name="maintenance_guideline_id" position="after">
-                <field name="bom_id" attrs="{'invisible': [('maintenance_guideline_id', '=', False)]}"
+            <field name="maintenance_guideline_ids" position="after">
+                <field name="bom_id" attrs="{'invisible': [('maintenance_guideline_ids', '=', [])]}"
                        context="{'default_company_id':company_id}"
                        options="{'no_create': 1, 'no_edit': 1,}"
                 />

@@ -3,76 +3,6 @@
     <data>
 
 
-        <record id="maintenance_request_task_view_form" model="ir.ui.view">
-            <field name="name">maintenance_request_task_view_form</field>
-            <field name="model">maintenance.request.task</field>
-            <field name="arch" type="xml">
-                <form string="maintenance_request_task_form">
-                    <header>
-                        <button name="action_draft" type="object" string="Draft" icon="fa-times"
-                                states="done" confirm="Are you sure to draft all dependent activities?"/>
-                        <button name="action_confirm" type="object" string="Confirm" icon="fa-check-square-o"
-                                states="draft"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
-                        <!--                        <field name="state" widget="statusbar" options="{'clickable': '1'}"/>-->
-                    </header>
-                    <sheet>
-
-                        <div class="oe_button_box" name="button_box"/>
-                        <div class="oe_title">
-                            <h1>
-                                <field name="name"/>
-                            </h1>
-                        </div>
-                        <div attrs="{'invisible': [('activity_speciality_ids', '=', [])]}">
-                            <label for="activity_speciality_ids" string="Specialities"/>
-                            <field
-                                    name="activity_speciality_ids"
-                                    widget="many2many_tags"
-                                    options="{'color_field': 'color'}"
-                                    placeholder="e.g. Mechanic"
-                            />
-
-                        </div>
-                        <group>
-                            <group>
-                                <field name="employee_id"
-                                       domain="[('speciality_id', 'in', activity_speciality_ids)]"
-                                       options="{'no_create': True, 'no_create_edit': True, 'no_open': False}"
-                                       widget="many2one_avatar_employee"/>
-                                <field name="activity_id"
-                                />
-                            </group>
-                            <group>
-                                <field name="company_id" groups="base.group_multi_company"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="maintenance_request_task_view_tree" model="ir.ui.view">
-            <field name="name">maintenance_request_task_view_tree</field>
-            <field name="model">maintenance.request.task</field>
-            <field name="arch" type="xml">
-                <tree string="maintenance_request_task_tree">
-                    <field name="name"/>
-                    <field name="employee_id" widget="many2one_avatar_employee"/>
-                    <field name="activity_id"/>
-                    <field name="state" widget="badge" decoration-success="state == 'done'"
-                           decoration-info="state == 'draft'"/>
-                    <field name="company_id" groups="base.group_multi_company"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="maintenance_request_task_action" model="ir.actions.act_window">
-            <field name="name">Maintenance Request Task</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">maintenance.request.task</field>
-            <field name="view_mode">tree,form</field>
-        </record>
 
 
         <record id="maintenance_request_form_inherit" model="ir.ui.view">
@@ -97,8 +27,9 @@
                 <xpath expr="//form/sheet/div[1]" position="replace"/>
 
                 <field name="category_id" position="after">
-                    <field name="maintenance_guideline_id"
+                    <field name="maintenance_guideline_ids"
                            attrs="{'invisible': [('equipment_id', '=', False)]}"
+                           widget="many2many_tags"
                            context="{'default_company_id':company_id}"
                            options="{'no_create': 1, 'no_edit': 1,}"
                     />

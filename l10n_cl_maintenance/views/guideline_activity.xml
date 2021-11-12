@@ -154,6 +154,7 @@
                     <field name="id"/>
                     <field name="code"/>
                     <field name="name"/>
+                    <field name="specialty_tag_ids"/>
                     <templates>
                         <t t-name="kanban-box">
                             <div class="oe_kanban_global_click">
@@ -173,8 +174,8 @@
 
                                             <a type="button">
                                                 <button name="action_open_url_video"
-                                                        type="object" icon="fa-youtube-play" class="oe_highlight">
-                                                    <span><i class="fa fa-youtube-play"/></span>
+                                                        type="object">
+                                                    <i class="fa fa-youtube-play"/>
                                                 </button>
 
                                             </a>

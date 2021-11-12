@@ -30,6 +30,7 @@
         # 'views/maintenance_equipment_activity.xml',
 
         'views/maintenance_request.xml',
+        'views/maintenance_request_task.xml',
 
         'wizard/guideline_line_confirm.xml',
 

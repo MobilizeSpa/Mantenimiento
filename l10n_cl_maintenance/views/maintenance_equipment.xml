@@ -173,16 +173,16 @@
 
 
     <!-- equipment.request : views -->
-    <record id="hr_equipment_request_view_search" model="ir.ui.view">
-        <field name="name">equipment.request.search</field>
-        <field name="model">maintenance.request</field>
-        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_search"/>
-        <field name="arch" type="xml">
-            <field name="category_id" position="after">
-                <field string="Activity" name="equipment_activity_id"/>
-            </field>
-        </field>
-    </record>
+<!--    <record id="hr_equipment_request_view_search" model="ir.ui.view">-->
+<!--        <field name="name">equipment.request.search</field>-->
+<!--        <field name="model">maintenance.request</field>-->
+<!--        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_search"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <field name="category_id" position="after">-->
+<!--                <field string="Activity" name="equipment_activity_id"/>-->
+<!--            </field>-->
+<!--        </field>-->
+<!--    </record>-->
 
 
     <!-- equipment : views -->

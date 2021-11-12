@@ -28,9 +28,12 @@ class MaintenanceGuideline(models.Model):
     _name = 'maintenance.guideline'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Maintenance Guideline General'
+
     _check_company_auto = True
 
     name = fields.Char('Name', required=True)
+    display_name = fields.Char(compute="_compute_display_name")
+
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
     description = fields.Text('Description')
     guideline_type_id = fields.Many2one('maintenance.guideline.type',
@@ -42,6 +45,11 @@ class MaintenanceGuideline(models.Model):
         selection=[('preventive', 'Preventive'),
                    ('corrective', 'Corrective'), ],
         required=True, default='preventive')
+
+    def name_get(self):
+        return [(guideline.id,
+                 "%s (%s)" % (guideline.name, 'Correctivo' if guideline.maintenance_type == 'corrective' else 'Preventivo'))
+                for guideline in self]
 
     maintenance_duration = fields.Float(help="Maintenance Duration in hours.")
 

@@ -59,28 +59,27 @@ class MaintenanceRequestTask(models.Model):
 class MaintenanceRequest(models.Model):
     _inherit = 'maintenance.request'
 
-    maintenance_guideline_id = fields.Many2one('maintenance.guideline', 'Guideline Of Maintenance',
-                                               domain="[('equipment_id', '=', equipment_id)]", check_company=True
-                                               )
+    maintenance_guideline_ids = fields.Many2many(comodel_name='maintenance.guideline',
+                                                 string='Guidelines Of Maintenance',
+                                                 domain="[('equipment_id', '=', equipment_id)]",
+                                                 check_company=True)
 
-    @api.onchange('maintenance_guideline_id')
-    def onchange_maintenance_guideline_id(self):
-        self.update(dict(maintenance_type=self.maintenance_guideline_id.maintenance_type))
+    # @api.onchange('maintenance_guideline_id')
+    # def onchange_maintenance_guideline_id(self):
+    #     self.update(dict(maintenance_type=self.maintenance_guideline_id.maintenance_type))
 
-    equipment_activity_id = fields.Many2one('maintenance.equipment.activity', 'Equipment Activity',
-                                            related="maintenance_guideline_id.equipment_activity_id"
-                                            )
+    # equipment_activity_id = fields.Many2one('maintenance.equipment.activity',
+    #                                         'Equipment Activity',
+    #                                         related="maintenance_guideline_id.equipment_activity_id")
 
-    task_ids = fields.One2many('maintenance.request.task', 'request_id', string='Tasks',
-                               required=False)
+    task_ids = fields.One2many('maintenance.request.task',
+                               'request_id', string='Tasks', required=False)
 
-    task_done_percent = fields.Float(
-        'Advance percentage', compute='_compute_task_done_percent',
-        help='Percentage of completed tasks')
+    task_done_percent = fields.Float('Advance percentage', compute='_compute_task_done_percent',
+                                     help='Percentage of completed tasks')
 
-    task_done_count = fields.Integer(
-        'Advance', compute='_compute_task_done_count',
-        help='Number of completed tasks')
+    task_done_count = fields.Integer('Advance', compute='_compute_task_done_count',
+                                     help='Number of completed tasks')
 
     @api.depends('task_ids', 'task_done_count')
     def _compute_task_done_percent(self):
@@ -131,25 +130,31 @@ class MaintenanceRequest(models.Model):
         compute='_compute_guideline_speciality_ids',
         string='Specialities')
 
-    @api.depends('maintenance_guideline_id')
+    @api.depends('maintenance_guideline_ids')
     def _compute_guideline_speciality_ids(self):
         for rec in self:
             set_speciality = set()
-            for line in rec.maintenance_guideline_id.activities_ids:
-                for speciality in line.activity_speciality_ids:
-                    set_speciality.add(speciality.id)
+            for guideline in rec.maintenance_guideline_ids:
+                for line in guideline.activities_ids:
+                    for speciality in line.activity_speciality_ids:
+                        set_speciality.add(speciality.id)
             rec.guideline_speciality_ids = [(6, 0, list(set_speciality))]
 
     def write(self, values):
         # Add code here
-        if 'maintenance_guideline_id' in values:
-            maintenance_guideline_id = self.maintenance_guideline_id.browse(int(values.get('maintenance_guideline_id')))
-            maintenance_guideline_id.bool_in_request = True
-            common_activities = maintenance_guideline_id.activities_ids
+        if 'maintenance_guideline_ids' in values:
+            aux_ids = values.get('maintenance_guideline_ids')
+            ids = []
+            for aux in aux_ids:
+                ids += aux[2]
+            maintenance_guideline_ids = self.env['maintenance.guideline'].browse(ids)
             data_task = []
-            for activity in common_activities:
-                data_task.append((0, 0, dict(activity_id=activity.activity_id.id,
-                                             request_id=self.id)))
+            for guideline in maintenance_guideline_ids:
+                guideline.bool_in_request = True
+                common_activities = guideline.activities_ids
+                for line in common_activities:
+                    data_task.append((0, 0, dict(activity_id=line.activity_id.id,
+                                                 request_id=self.id)))
             values.update(dict(task_ids=data_task))
             if self.task_ids:
                 self.task_ids = [(6, 0, [])]
@@ -160,13 +165,18 @@ class MaintenanceRequest(models.Model):
     def create(self, values):
         # Add code here
         res = super(MaintenanceRequest, self).create(values)
-        if 'maintenance_guideline_id' in values:
-            maintenance_guideline_id = self.maintenance_guideline_id.browse(int(values.get('maintenance_guideline_id')))
-            maintenance_guideline_id.bool_in_request = True
-            common_activities = maintenance_guideline_id.activities_ids
+        if 'maintenance_guideline_ids' in values:
+            aux_ids = values.get('maintenance_guideline_ids')
+            ids = []
+            for aux in aux_ids:
+                ids += aux[2]
+            maintenance_guideline_ids = self.env['maintenance.guideline'].browse(ids)
             data_task = []
-            for activity in common_activities:
-                data_task.append((0, 0, dict(activity_id=activity.activity_id.id,
-                                             request_id=res.id)))
+            for guideline in maintenance_guideline_ids:
+                guideline.bool_in_request = True
+                common_activities = guideline.activities_ids
+                for line in common_activities:
+                    data_task.append((0, 0, dict(activity_id=line.activity_id.id,
+                                                 request_id=res.id)))
             res.write(dict(task_ids=data_task))
         return res
