@@ -3,8 +3,6 @@
     <data>
 
 
-<<<<<<< HEAD
-=======
         <record id="maintenance_request_task_view_form" model="ir.ui.view">
             <field name="name">maintenance_request_task_view_form</field>
             <field name="model">maintenance.request.task</field>
@@ -75,7 +73,8 @@
             <field name="res_model">maintenance.request.task</field>
             <field name="view_mode">tree,form</field>
         </record>
->>>>>>> 687db29... activadades multiples relacionadas al empleado
+
+
 
 
         <record id="maintenance_request_form_inherit" model="ir.ui.view">
@@ -83,6 +82,15 @@
             <field name="model">maintenance.request</field>
             <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
             <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='equipment_id']" position="before">
+                    <field name="maintenance_type" widget="radio"
+                           position="move"/>
+                </xpath>
+
+                <xpath expr="//field[@name='maintenance_type']" position="attributes">
+                      <attribute name="optional">{'horizontal': true}</attribute>
+                </xpath>
 
                 <xpath expr="//div[@class='oe_title']" position="after">
                     <div attrs="{'invisible': [('guideline_speciality_ids', '=', [])]}">
@@ -102,6 +110,7 @@
                 <field name="category_id" position="after">
                     <field name="maintenance_guideline_ids"
                            attrs="{'invisible': [('equipment_id', '=', False)]}"
+                           domain="[('maintenance_type', '=', maintenance_type)]"
                            widget="many2many_tags"
                            context="{'default_company_id':company_id}"
                            options="{'no_create': 1, 'no_edit': 1,}"

@@ -59,9 +59,14 @@ class MaintenanceRequest(models.Model):
                                    default=_default_warehouse_id, check_company=True
                                    )
 
-    bom_id = fields.Many2one('mrp.bom', 'Bill of Material',
-                             related="maintenance_guideline_id.bom_id"
-                             )
+    bom_ids = fields.Many2many('mrp.bom', 'Bills of Materials', compute='_compute_bom_ids')
+
+    @api.depends('maintenance_guideline_ids')
+    def _compute_bom_ids(self):
+        for rec in self:
+            bom_ids = [mg.bom_id.id for mg in rec.maintenance_guideline_ids]
+            rec.bom_ids = [(6, 0, bom_ids)]
+
     maintenance_location_id = fields.Many2one("stock.location", "Maintenance Location", check_company=True,
                                               domain="['|', ('company_id', '=', company_id), ('company_id', '=', False), ('usage', 'in', ['production', 'customer'])]",
                                               default=_default_maintenance_location
@@ -151,46 +156,51 @@ class MaintenanceRequest(models.Model):
         nonactive_test = False
 
         for request in self:
-            if not request.bom_id or not all(
-                    line.product_id.type in ('consu', 'product') for line in request.bom_id.bom_line_ids):
+            products = []
+            for bom in request.bom_ids:
+                for line in bom.bom_line_ids:
+                    products.append(line.product_id)
+
+            if not request.bom_ids or not all(p.type in ('consu', 'product') for p in products):
                 continue
 
-            for line in request.bom_id.bom_line_ids:
-                qty = line.product_qty
-                if float_is_zero(qty, precision_digits=precision):
-                    continue
+            for bom in request.bom_ids:
+                for line in bom.bom_line_ids:
+                    qty = line.product_qty
+                    if float_is_zero(qty, precision_digits=precision):
+                        continue
 
-                group_id = request.procurement_group_id
-                if not group_id:
-                    group_id = self.env['procurement.group'].create(request._prepare_procurement_group_vals())
-                    request.procurement_group_id = group_id
-                else:
-                    # In case the procurement group is already created and the request was
-                    # cancelled, we need to update certain values of the group.
-                    updated_vals = {}
-                    # if group_id.partner_id != line.order_id.partner_shipping_id:
-                    #     updated_vals.update({'partner_id': line.order_id.partner_shipping_id.id})
-                    if group_id.move_type != 'one':
-                        updated_vals.update({'move_type': 'one'})
-                    if updated_vals:
-                        group_id.write(updated_vals)
+                    group_id = request.procurement_group_id
+                    if not group_id:
+                        group_id = self.env['procurement.group'].create(request._prepare_procurement_group_vals())
+                        request.procurement_group_id = group_id
+                    else:
+                        # In case the procurement group is already created and the request was
+                        # cancelled, we need to update certain values of the group.
+                        updated_vals = {}
+                        # if group_id.partner_id != line.order_id.partner_shipping_id:
+                        #     updated_vals.update({'partner_id': line.order_id.partner_shipping_id.id})
+                        if group_id.move_type != 'one':
+                            updated_vals.update({'move_type': 'one'})
+                        if updated_vals:
+                            group_id.write(updated_vals)
 
-                values = request._prepare_procurement_values(line, group_id=group_id)
+                    values = request._prepare_procurement_values(line, group_id=group_id)
 
-                # nonactive_test = nonactive_test or bool(self.maintenance_location_id and
-                #                                     self.maintenance_location_id.usage == 'production' and
-                #                                     self.warehouse_id)
+                    # nonactive_test = nonactive_test or bool(self.maintenance_location_id and
+                    #                                     self.maintenance_location_id.usage == 'production' and
+                    #                                     self.warehouse_id)
 
-                procurements.append(self.env['procurement.group'].Procurement(
-                    line.product_id,
-                    qty,
-                    line.product_uom_id,
-                    request.maintenance_location_id,
-                    line.display_name,
-                    request.name,
-                    request.company_id,
-                    values
-                ))
+                    procurements.append(self.env['procurement.group'].Procurement(
+                        line.product_id,
+                        qty,
+                        line.product_uom_id,
+                        request.maintenance_location_id,
+                        line.display_name,
+                        request.name,
+                        request.company_id,
+                        values
+                    ))
         if procurements:
             self.env['procurement.group'].with_context(active_test=not nonactive_test).run(procurements)
 

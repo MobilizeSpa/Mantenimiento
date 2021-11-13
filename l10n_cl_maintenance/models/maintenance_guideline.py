@@ -46,10 +46,10 @@ class MaintenanceGuideline(models.Model):
                    ('corrective', 'Corrective'), ],
         required=True, default='preventive')
 
-    def name_get(self):
-        return [(guideline.id,
-                 "%s (%s)" % (guideline.name, 'Correctivo' if guideline.maintenance_type == 'corrective' else 'Preventivo'))
-                for guideline in self]
+    # def name_get(self):
+    #     return [(guideline.id,
+    #              "%s (%s)" % (guideline.name, 'Correctivo' if guideline.maintenance_type == 'corrective' else 'Preventivo'))
+    #             for guideline in self]
 
     maintenance_duration = fields.Float(help="Maintenance Duration in hours.")
 

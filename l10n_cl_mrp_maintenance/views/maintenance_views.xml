@@ -45,10 +45,10 @@
     <record id="hr_equipment_request_view_search" model="ir.ui.view">
         <field name="name">equipment.request.search</field>
         <field name="model">maintenance.request</field>
-        <field name="inherit_id" ref="l10n_cl_maintenance.hr_equipment_request_view_search"/>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_search"/>
         <field name="arch" type="xml">
-            <field name="equipment_activity_id" position="after">
-                <field string="Bill of Material" name="bom_id"/>
+            <field name="maintenance_team_id" position="after">
+                <!--                <field string="Bill of Material" name="bom_id"/>-->
                 <field string="Warehouse" name="warehouse_id" groups="stock.group_stock_multi_warehouses"/>
                 <field string="Maintenance Location" name="maintenance_location_id"/>
             </field>
@@ -64,13 +64,33 @@
         </field>
     </record>
 
+    <!-- Inherit Form View to Modify it -->
+    <record id="mblz_maintenance_request_view_form_inherit_mrp" model="ir.ui.view">
+        <field name="name">mblz: maintenance.request.view.form.inherit.mrp</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="mrp_maintenance.maintenance_request_view_form_inherit_mrp"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='maintenance_guideline_ids']" position="after">
+                <!-- Add your fields or attributes here -->
+                <field name="production_id"
+                       options="{'no_create': True, 'no_open': True}"
+                       position="move"/>
+                <field name="workorder_id" attrs="{'invisible': [('production_id', '=', False)]}"
+                       options="{'no_create': True, 'no_open': True}" domain="[('production_id', '=', production_id)]"
+                       groups="mrp.group_mrp_routings"
+                       position="move"/>
+            </xpath>
+
+        </field>
+    </record>
+
     <record id="hr_equipment_request_view_form" model="ir.ui.view">
         <field name="name">equipment.request.form</field>
         <field name="model">maintenance.request</field>
         <field name="inherit_id" ref="l10n_cl_maintenance.maintenance_request_form_inherit"/>
         <field name="arch" type="xml">
             <xpath expr="//div[@name='button_box']" position="inside">
-
                 <field name="picking_ids" invisible="1"/>
                 <button type="object"
                         name="action_view_delivery_bom"
@@ -82,7 +102,11 @@
             </xpath>
 
             <field name="maintenance_guideline_ids" position="after">
-                <field name="bom_id" attrs="{'invisible': [('maintenance_guideline_ids', '=', [])]}"
+                <hr/>
+                <field name="bom_ids"
+                       string="Bills of Materials"
+                       widget="many2many_tags"
+                       attrs="{'invisible': [('maintenance_guideline_ids', '=', [])]}"
                        context="{'default_company_id':company_id}"
                        options="{'no_create': 1, 'no_edit': 1,}"
                 />

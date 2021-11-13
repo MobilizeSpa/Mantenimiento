@@ -71,10 +71,6 @@ class MaintenanceRequest(models.Model):
                                                  domain="[('equipment_id', '=', equipment_id)]",
                                                  check_company=True)
 
-    # @api.onchange('maintenance_guideline_id')
-    # def onchange_maintenance_guideline_id(self):
-    #     self.update(dict(maintenance_type=self.maintenance_guideline_id.maintenance_type))
-
     # equipment_activity_id = fields.Many2one('maintenance.equipment.activity',
     #                                         'Equipment Activity',
     #                                         related="maintenance_guideline_id.equipment_activity_id")
@@ -147,10 +143,14 @@ class MaintenanceRequest(models.Model):
                         set_speciality.add(speciality.id)
             rec.guideline_speciality_ids = [(6, 0, list(set_speciality))]
 
+    @api.onchange('maintenance_type')
+    def onchange_maintenance_type(self):
+        self.update(dict(maintenance_guideline_ids=[(6, 0, [])]))
+
     def write(self, values):
         # Add code here
         if 'maintenance_guideline_ids' in values:
-            aux_ids = values.get('maintenance_guideline_ids')
+            aux_ids = values.get('maintenance_guideline_ids', [])
             ids = []
             for aux in aux_ids:
                 ids += aux[2]
@@ -173,7 +173,7 @@ class MaintenanceRequest(models.Model):
         # Add code here
         res = super(MaintenanceRequest, self).create(values)
         if 'maintenance_guideline_ids' in values:
-            aux_ids = values.get('maintenance_guideline_ids')
+            aux_ids = values.get('maintenance_guideline_ids', [])
             ids = []
             for aux in aux_ids:
                 ids += aux[2]
